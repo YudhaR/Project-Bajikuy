@@ -1,0 +1,491 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Lora:wght@500;600&family=Poppins:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Butcherman&family=Poppins:wght@400;500;600;700&display=swap");
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: #f39644;
+  --first-color-alt: #f3730f;
+  --title-color: #37323e;
+  --text-color: #6d6a75;
+  --text-color-light: hsl(19, 8%, 55%);
+  --body-color: #eee;
+  --container-color: hsl(19, 100%, 97%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --title-font: "Lora", serif;
+  --subtitle-font: "Dancing Script", cursive;
+  --biggest-font-size: 2.25rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /*========== Font weight ==========*/
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+@media screen and (min-width: 1024px) {
+  :root {
+    --biggest-font-size: 4rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  color: var(--text-color);
+  transition: background .4s; /* for dark mode animation */
+}
+
+h1, h2, h3 {
+  color: var(--title-color);
+  font-weight: var(--font-medium);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*=============== THEME ===============*/
+.nav__buttons {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.change-theme {
+  font-size: 1.25rem;
+  color: var(--title-color);
+  cursor: pointer;
+  transition: color .3s;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1024px;
+  margin-inline: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section {
+  padding-block: 5rem 1rem;
+}
+
+.section__title {
+  font-size: var(--h1-font-size);
+  font-family: var(--title-font);
+  margin-bottom: 1.5rem;
+}
+
+.section__subtitle {
+  display: block;
+  font-size: var(--h2-font-size);
+  font-family: var(--subtitle-font);
+  color: var(--first-color);
+  margin-bottom: 0.5rem;
+}
+
+.section__title, 
+.section__subtitle {
+  text-align: center;
+}
+
+.main {
+  overflow: hidden; /* For animation ScrollReveal */
+}
+
+/*=============== HEADER & NAV ===============*/
+.header{
+  position: fixed;
+  width: 100%;
+  background-color: var(--body-color);
+  top: 0;
+  left: 0;
+  z-index: var(--z-fixed);
+  transition: box-shadow .3s, background .4s;
+}
+
+.nav {
+  position: relative;
+  height:  var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__logo,
+.nav__toggle,
+.nav__close {
+  display: flex;
+  color: var(--title-color);
+}
+
+.nav__logo {
+  align-items: center;
+  column-gap: .5rem;
+  transition: color .3s;
+}
+
+.nav__logo img {
+  width: 250px;
+  margin-top: -25px;
+  margin-left: -20px;
+}
+
+
+.nav__toggle {
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width:767px) {
+  .nav__menu {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    background-color: var(--body-color);
+    width: 100%;
+    box-shadow: 0 8px 20px hsla(19, 64%, 24%, .1);
+    padding-block: 3.5rem;
+    transition: top .4s;
+  }
+}
+
+.nav__list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  row-gap: 2rem;
+}
+
+.nav__link {
+  color: var(--title-color);
+  font-weight: var(--font-medium);
+  transition: color .4s;
+}
+
+.nav__link:hover {
+  color: var(--first-color);
+}
+
+.nav__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Show menu */
+
+.show-menu {
+  top: 0;
+}
+
+
+/* Change background header */
+
+.bg-header {
+  box-shadow: 0 2px 8px hsla(19, 64%, 24%, .1);
+}
+
+
+/* Active link */
+
+.active-link {
+  color: var(--first-color);
+}
+
+
+/*=============== HOME ===============*/
+.home_container{
+  grid-template-columns: 350px 600px;
+  padding-top: 2rem;
+  column-gap: 6rem;
+}
+
+.home__data {
+  order: 1;
+}
+
+.desc{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+  margin-left: 4rem;
+}
+
+.home_subtitle{
+  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.home_title {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #37323e;
+}
+
+.dropdown{
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 18px;
+  color: #1a1a1a;
+}
+
+.home_list{
+  margin-top: 6rem;
+}
+
+.home_items{
+  border-top: 1px solid #1a1a1a;
+  color: #37323e;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.home_item{
+  margin: 0 0 20px 0;
+}
+
+.home_link{
+  color: #1a1a1a;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.box_title{
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid #1a1a1a82;
+}
+
+.box{
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 0.5fr));
+  gap: 25px;
+}
+
+.boxp{
+  border: 1px solid #1a1a1a82;
+  transition: 1s ease;
+  border-radius: 10px;
+}
+
+
+.boxp{
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+}
+
+.boxp img {
+  width: 200px;
+}
+
+
+
+/*=============== BUTTON ===============*/
+.button {
+  display: inline-flex;
+  align-items: center;
+  column-gap: .5rem;
+  background-color: var(--first-color);
+  padding: 1rem 1.5rem;
+  border-radius: 4rem;
+  color: #fff;
+  font-weight: var(--font-medium);
+  transition: background .3s;
+}
+
+.button i {
+  font-size: 1.5rem;
+  transition: transform .3s;
+}
+
+.button:hover {
+  background-color: var(--first-color-alt);
+}
+
+.button:hover i {
+  transform: translateX(.25rem);
+}
+
+
+
+
+
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 340px) {
+
+    .container {
+        margin-inline: 1rem;
+      }
+
+
+    
+
+
+}
+
+/* For medium devices */
+@media screen and (min-width: 576px) {
+
+
+
+
+}
+
+@media screen and (min-width: 767px) {
+    .nav {
+      column-gap: 3rem;
+    }
+  
+    .nav__toggle,
+    .nav__close,
+    .nav__img-1,
+    .nav__img-2 {
+      display: none;
+    }
+    .nav__list {
+      flex-direction: row;
+      column-gap: 3rem;
+    }
+  
+    .nav__menu {
+      margin-left: auto;
+    }
+
+}
+
+/* For large devices */
+@media screen and (min-width: 1024px) {
+
+    .nav {
+      height: calc(var(--header-height) + 1.5rem);
+    }
+
+    .scrollup {
+      right: 3rem;
+    }
+
+
+
+    
+
+    
+
+
+}  
+
+@media screen and (min-width: 1064px) {
+    .container {
+      margin-inline: auto;
+    }
+
+    
+}
+
+@media screen and (min-width: 1280px) {
+
+  
+
+}
+
+/*=============== SCROLL UP ===============*/
+.scrollup {
+  position: fixed;
+  right: 1rem;
+  bottom: -50%;
+  background-color: var(--container-color);
+  box-shadow: 0 4px 12px hsla(19, 64%, 24%, .1);
+  display: inline-flex;
+  padding: .35rem;
+  border-radius: .25rem;
+  font-size: 1.1rem;
+  color: var(--first-color);
+  z-index: var(--z-tooltip);
+  transition: bottom .3s, transform .3s, background .4s;
+
+}
+
+.scrollup:hover {
+  transform: translate(-.25rem);
+}
+
+/* Show Scroll Up*/
+
+.show-scroll {
+  bottom: 3rem;
+}
+
+/*=============== SCROLL BAR ===============*/
+::-webkit-scrollbar {
+  width: .6rem;
+  border-radius: .5rem;
+  background-color: hsl(19, 8%,75%);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: .5rem;
+  background-color: hsl(19, 8%, 65%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(19, 8%, 55%);
+}
