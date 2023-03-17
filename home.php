@@ -21,6 +21,8 @@
         <?php include 'components/user_header.php'; ?>
 
         <!--==================== MAIN ====================-->
+
+        <!--==================== Home ====================-->
         <section class="home section" id="home">
             <div class="home_container container grid">
                 <div class="home_data">
@@ -54,6 +56,76 @@
                 </div>
             </div>
         </section>
+
+        <!--==================== Cerita ====================-->
+        <section class="cerita section" id="cerita">
+            <span class="cerita_subtitle">Cerita dibalik kehangatan</span>
+            <h4 class="cerita_title">Cerita</h4>
+
+            <div class="cerita_container container grid">
+                <div class="cerita_data">
+                    <h4 class="cerita_title">
+                        Minuman Tradisional <br>
+                        Wedang Ronde
+                    </h4>
+
+                    <p class="cerita_description">
+                    Wedang ronde merupakan salah satu bentuk akulturasi budaya di Indonesia. Minuman hangat tradisional ini berasal dari dataran Tiongkok dengan sebutan Dongzhi atau Tangyuan. Pada zaman dahulu ketika Indonesia belum terbentuk dan wilayah-wilayah masih disebut Nusantara, banyak pedagang yang datang ke Indonesia. Sebagian pedagang memperkenalkan minuman hangat ini. Masyarakat Nusantara mulai berinovasi membuat minuman tradisional dari bahan khas masyarakat Jawa yaitu, jahe.
+                    </p>
+                </div>
+                <div class="cerita_box">
+                    <img src="./img/ronde.png" alt="Wedang Ronde" class="cerita_img">
+                </div>
+            </div>
+
+           <div class="cerita1_container container grid">
+                <div class="cerita1_data">
+                    <h4 class="cerita1_title">
+                        Minuman Tradisional <br>
+                        Wedang Sekoteng
+                    </h4>
+
+                    <p class="cerita_description">Sukothung atau shiguoteng ini dibawa oleh orang-orang Tiongkok ke Indonesia dan namanya dilafalkan menjadi Sekoteng. Isiannya juga berbeda karena disesuaikan dengan buah dan biji yang tumbuh di Indonesia. Sekoteng sendiri dalam budaya Jawa merupakan singkatan dari nyokot weteng yang artinya menggigit perut. Orang Jawa membuat sekoteng dari rebusan gula merah dan jahe yang diisi kacang tanah, kacang hijau, potongan roti tawar, dan pacar cina atau biji mutiara yang berwana merah muda.</p>
+                </div>
+                <img src="./img/sekoteng.png" alt="Wedang Sekoteng" class="cerita1_img">
+           </div>
+
+            <div class="cerita_container container grid">
+                <div class="cerita_data">
+                    <h4 class="cerita_title">
+                        Minuman Tradisional <br>
+                        Wedang Bajigur
+                    </h4>
+
+                    <p class="cerita_description">
+                    Minuman tradisional ini pertama kali dikenalkan oleh para petani Sunda pada zaman dahulu. Mulanya, para petani terbiasa menikmati air rebusan gula aren selepas bekerja, tujuannya adalah untuk meningkatkan stamina dan menambah tenaga. Sampai pada suatu hari, mereka mulai menambahkan beberapa rempah ke dalam air rebusan tersebut, yang salah satunya adalah perasan santan. Sejak saat itu, bajigur menjadi populer di kalangan petani dan menjadi minuman favorit yang kemudian diperjual belikan.
+                    </p>
+                </div>
+                <div class="cerita_box">
+                    <img src="./img/bajigur.png" alt="Wedang Bajigur" class="cerita_img">
+                </div>
+            </div>
+
+            <div class="cerita1_container container grid">
+                <div class="cerita1_data">
+                    <h4 class="cerita1_title">
+                        Minuman Tradisional <br>
+                        Wedang Jahe
+                    </h4>
+
+                    <p class="cerita_description">Wedang jahe merupakan minuman tradisional yang diwariskan oleh nenek moyang secara turun temurun. Minuman tradisional yang diolah dengan cara sederhana. Umum disajikan panas atau hangat. Wedang berasal dari bahasa jawa yang berarti “minuman jahe”. Jahe segar dipukul atau digeprek dipadukan dengan gula jawa, gula pasir, madu atau gula batu dalam sebuah gelas bercampur air panas. Jahe juga bisa ditambah rempah lain seperti cengkih, kayu manis dan daun pandan. Aroma menjadi khas nan menawan.</p>
+
+                    <a href="#" class="button">
+                        Beli Sekarang <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+                <img src="./img/jahe.png" alt="Wedang Jahe" class="cerita1_img">
+           </div>
+
+        </section>
+
+
+
 
 
 

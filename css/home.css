@@ -241,14 +241,13 @@ img {
 
 
 /*=============== HOME ===============*/
-.home_container{
-  grid-template-columns: 350px 600px;
-  padding-top: 2rem;
-  column-gap: 6rem;
+.home {
+  position: relative;
 }
 
-.home__data {
-  order: 1;
+.home__container {
+  row-gap: 3rem;
+  padding-top: 2rem;
 }
 
 .desc{
@@ -257,7 +256,7 @@ img {
   line-height: 24px;
   letter-spacing: 1px;
   color: #1a1a1a;
-  margin-left: 4rem;
+  text-align: left;
 }
 
 .home_subtitle{
@@ -283,7 +282,7 @@ img {
 }
 
 .home_list{
-  margin-top: 6rem;
+  margin-top: 2rem;
 }
 
 .home_items{
@@ -318,6 +317,7 @@ img {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 0.5fr));
   gap: 25px;
+  justify-content: center;
 }
 
 .boxp{
@@ -336,6 +336,74 @@ img {
   width: 200px;
 }
 
+.boxp:hover{
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+
+/*=============== CERITA ===============*/
+.cerita_title{
+  font-size: var(--h1-font-size);
+  font-family: "Lora", serif;;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.cerita_subtitle {
+  display: block;
+  font-size: var(--h2-font-size);
+  font-family: "Dancing Script", cursive;;
+  color: var(--first-color);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.cerita {
+  position: relative;
+}
+
+.cerita_container {
+  row-gap: 4rem;
+  justify-content: center;
+}
+
+.cerita_data {
+  position: relative;
+  text-align: center;
+}
+
+.cerita_description {
+  text-align: center;
+}
+
+.cerita_img {
+  width: 300px;
+  justify-self: center;
+}
+
+.cerita1_data{
+  text-align: center;
+}
+
+.cerita1_title{
+  font-size: var(--h1-font-size);
+  font-family: "Lora", serif;;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.cerita1_img{
+  width: 300px;
+  justify-self: center;
+}
+
+.cerita1_container {
+  row-gap: 3rem;
+}
+
+.cerita1_container .button {
+  margin-top: 1rem;
+}
 
 
 /*=============== BUTTON ===============*/
@@ -385,7 +453,7 @@ img {
 
 /* For medium devices */
 @media screen and (min-width: 576px) {
-
+  
 
 
 
@@ -411,6 +479,10 @@ img {
       margin-left: auto;
     }
 
+
+
+    
+
 }
 
 /* For large devices */
@@ -424,10 +496,147 @@ img {
       right: 3rem;
     }
 
-
-
+    .home_container{
+      position: relative;
+      grid-template-columns: 350px 600px;
+      padding-top: 6rem;
+      column-gap: 6rem;
+    }
     
+    .home__data {
+      order: 1;
+    }
 
+    .desc{
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 1px;
+      color: #1a1a1a;
+      margin-left: 4rem;
+    }
+    
+    .home_subtitle{
+      letter-spacing: 1px;
+      font-size: 12px;
+      font-weight: 400;
+    }
+    
+    .home_title {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 28px;
+      font-weight: 600;
+      color: #37323e;
+    }
+    
+    .dropdown{
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 18px;
+      color: #1a1a1a;
+    }
+    
+    .home_list{
+      margin-top: 6rem;
+    }
+    
+    .home_items{
+      border-top: 1px solid #1a1a1a;
+      color: #37323e;
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-top: 1rem;
+      padding-top: 1rem;
+    }
+    
+    .home_item{
+      margin: 0 0 20px 0;
+    }
+    
+    .home_link{
+      color: #1a1a1a;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+    
+    .box_title{
+      color: #1a1a1a;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      border-bottom: 1px solid #1a1a1a82;
+    }
+    
+    .box{
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 0.5fr));
+      gap: 25px;
+    }
+    
+    .boxp{
+      border: 1px solid #1a1a1a82;
+      transition: 1s ease;
+      border-radius: 10px;
+    }
+    
+    
+    .boxp{
+      padding: 10px 10px 10px 10px;
+      text-align: center;
+    }
+    
+    .boxp img {
+      width: 200px;
+    }
+
+    .cerita{
+      margin-top: 5rem;
+    }
+
+    .cerita_subtitle{
+      padding-top: 2rem;
+    }
+    
+    .cerita_container {
+      grid-template-columns: 600px 350px;
+      align-items: center;
+      column-gap: 7rem;
+      padding-bottom: 4rem;
+    }
+  
+    .cerita_data,
+    .cerita_description,
+    .cerita_data .cerita_title {
+      text-align: initial;
+    }
+  
+  
+    .cerita_img {
+      width: 450px;
+    }
+    
+    .cerita1_container {
+      grid-template-columns: 350px 600px;
+      align-items: center;
+      column-gap: 7rem;
+      padding-bottom: 4rem;
+    }
+  
+    .cerita1_data {
+      order: 1;
+    }
+  
+    .cerita1_data,
+    .cerita .cerita1_title {
+      text-align: initial;
+    }
+  
+    .cerita1_img {
+      width: 450px;
+    }
     
 
 

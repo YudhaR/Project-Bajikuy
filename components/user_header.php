@@ -8,15 +8,19 @@
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="#beranda" class="nav__link active-link">Beranda</a>
+                            <a href="#home" class="nav__link active-link">Beranda</a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="#tentang"about class="nav__link">Tentang</a>
+                            <a href="#cerita"about class="nav__link">Cerita</a>
                         </li>
 
                         <li class="nav__item">
-                            <a href="#cerita" class="nav__link">Cerita</a>
+                            <a href="#khasiat" class="nav__link">Khasiat</a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#lokasi" class="nav__link">Lokasi</a>
                         </li>
 
                         <li class="nav__item">
