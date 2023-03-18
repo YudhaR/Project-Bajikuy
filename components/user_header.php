@@ -16,10 +16,6 @@
                         </li>
 
                         <li class="nav__item">
-                            <a href="#khasiat" class="nav__link">Khasiat</a>
-                        </li>
-
-                        <li class="nav__item">
                             <a href="#lokasi" class="nav__link">Lokasi</a>
                         </li>
 
