@@ -491,7 +491,7 @@ img {
 .bloks .blok .icons span{
   font-size: 14px;
   color:#777;
-  padding-inline: 1.5rem;
+  padding-inline: 1.9rem;
 }
 
 .bloks .blok .icons span i{
@@ -507,6 +507,107 @@ img {
   margin-top: 2rem;
   cursor: pointer;
 }
+
+/*=============== MENU ===============*/
+.menu_subtitle{
+  display: block;
+  font-size: var(--h2-font-size);
+  font-family: "Dancing Script", cursive;;
+  color: var(--first-color);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.menu_title{
+  font-size: var(--h1-font-size);
+  font-family: "Lora", serif;;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.bmens{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 0.5fr));
+  gap: 25px;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.bmen {
+  background-color: var(--container-color);
+  box-shadow:  0 8px 20px hsla(19, 64%, 48%, .08);
+  border-radius: 1rem;
+  margin-top: 2rem;
+  text-align: center;
+  display: none;
+}
+
+.menu .bmens .bmen:nth-child(1),
+.menu .bmens .bmen:nth-child(2),
+.menu .bmens .bmen:nth-child(3){
+  display: inline-block;
+}
+
+.menu_img {
+  width: 220px;
+  top: -2.5rem;
+  margin-top: -3rem;
+  transition: transform .4s;
+}
+
+.menu_name {
+  font-size: var(--h3-font-size);
+  font-family: var(--title-font);
+  margin-bottom: .25rem;
+}
+
+.menu_description {
+  display: block;
+  font-size: var(--smaller-font-size);
+  margin-bottom: 1rem;
+  color: #6d6a75;
+}
+
+.menu_price {
+  font-size: var(--h3-font-size);
+  font-weight: var(--font-medium);
+  color: var(--first-color);
+}
+
+.menu_button {
+  display: flex;
+  margin-left: 11.5rem;
+  margin-top: -2rem;
+  margin-bottom: 2rem;
+  background-color: var(--first-color);
+  padding: 6px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 20px hsla(19, 64%, 20%, .2);
+  bottom: 1.25rem;
+  right: 1.25rem;
+  cursor: pointer;
+  transition: background .3s;
+}
+
+.menu_button:hover {
+  background-color: var(--first-color-alt);
+}
+
+.bmen:hover .menu_img {
+  transform: translateY(-.25rem);
+}
+
+#loadmenu{
+  margin-top: 2rem;
+  cursor: pointer;
+}
+
+
+
 
 
 
@@ -742,6 +843,29 @@ img {
     .cerita1_img {
       width: 450px;
     }
+
+    .bloks .blok .icons span{
+      font-size: 14px;
+      color:#777;
+      padding-inline: 1.5rem;
+    }
+  
+    .menu_img {
+      width: 230px;
+    }
+  
+    .menu_button {
+      bottom: 2rem;
+    }
+
+    .bmens{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 0.25fr));
+      gap: 50px;
+      justify-content: center;
+      margin-top: 3rem;
+    }
+  
 
 
 

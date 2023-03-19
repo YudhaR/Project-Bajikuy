@@ -20,11 +20,15 @@
                         </li>
 
                         <li class="nav__item">
-                            <a href="#favorit" class="nav__link">Favorit</a>
+                            <a href="#menu" class="nav__link">Menu</a>
                         </li>
 
                         <li class="nav__item">
                             <a href="#terbaru" class="nav__link">Terbaru</a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#bantuan" class="nav__link">Bantuan</a>
                         </li>
                     </ul>
 

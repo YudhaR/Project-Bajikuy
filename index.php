@@ -216,6 +216,34 @@
                     </div>
                 </a>
 
+                <a href="" class="blok">
+                    <div class="image">
+                        <img src="./img/11.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>blog title goes here</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                        <div class="icons">
+                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
+                            <span> <i class="fas fa-user"></i> by admin </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="" class="blok">
+                    <div class="image">
+                        <img src="./img/11.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>blog title goes here</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                        <div class="icons">
+                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
+                            <span> <i class="fas fa-user"></i> by admin </span>
+                        </div>
+                    </div>
+                </a>
+
                 
             </div>
 
@@ -227,11 +255,136 @@
     
         </section>
 
+        <section class="menu section" id="menu">
+            <span class="menu_subtitle">Pilih Minuman Favoritmu</span>
+            <h4 class="menu_title">Menu</h4>
+
+            <div class="bmens container">
+                <div class="bmen">
+                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name">Onigiri</h3>
+                    <a href="" class="menu_description">Japanese Dish</a>
+
+                    <span class="menu_price">$10.99</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="bmen">
+                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name">Onigiri</h3>
+                    <a href="" class="menu_description">Japanese Dish</a>
+
+                    <span class="menu_price">$10.99</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="bmen">
+                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name">Onigiri</h3>
+                    <a href="" class="menu_description">Japanese Dish</a>
+
+                    <span class="menu_price">$10.99</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="bmen">
+                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name">Onigiri</h3>
+                    <a href="" class="menu_description">Japanese Dish</a>
+
+                    <span class="menu_price">$10.99</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="bmen">
+                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name">Onigiri</h3>
+                    <a href="" class="menu_description">Japanese Dish</a>
+
+                    <span class="menu_price">$10.99</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="bmen">
+                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name">Onigiri</h3>
+                    <a href="" class="menu_description">Japanese Dish</a>
+
+                    <span class="menu_price">$10.99</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="bmen">
+                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name">Onigiri</h3>
+                    <a href="" class="menu_description">Japanese Dish</a>
+
+                    <span class="menu_price">$10.99</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="bmen">
+                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name">Onigiri</h3>
+                    <a href="" class="menu_description">Japanese Dish</a>
+
+                    <span class="menu_price">$10.99</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+
+            </div>
+
+            <div class="tombol container">
+                <div id="loadmenu" class="button"> Lebih Banyak </div>
+            </div>
 
 
 
 
 
+
+        </section>
 
         <!--========== SCROLL UP ==========-->
         <a href="#" class="scrollup" id="scroll-up">
@@ -244,6 +397,9 @@
         <!--=============== Header JS ===============-->
         <script src="./js/header.js"></script>
 
-        <!--=============== LOAD MORE ===============-->
+        <!--=============== LOAD MORE LOKASI ===============-->
         <script src="./js/load.js"></script>
+
+        <!--=============== LOAD MORE MENU ===============-->
+        <script src="./js/loadmenu.js"></script>
     </body>
