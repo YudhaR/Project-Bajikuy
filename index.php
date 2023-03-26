@@ -19,7 +19,7 @@
     <body>
     
 
-        <?php include 'components/user_header.php'; ?>
+        <?php include './components/user_header.php'; ?>
 
         <!--==================== MAIN ====================-->
 
@@ -49,8 +49,8 @@
                         </a>
                         <a href="">
                             <div class="boxp">
-                                <h2 class="box_title">Khasiat</h2>
-                                <img src="./img/2.png" alt="">
+                                <h2 class="box_title">Toko</h2>
+                                <img src="./img/3.png" alt="">
                             </div>
                         </a>
                     </div>
@@ -116,7 +116,7 @@
 
                     <p class="cerita_description">Wedang jahe merupakan minuman tradisional yang diwariskan oleh nenek moyang secara turun temurun. Minuman tradisional yang diolah dengan cara sederhana. Umum disajikan panas atau hangat. Wedang berasal dari bahasa jawa yang berarti “minuman jahe”. Jahe segar dipukul atau digeprek dipadukan dengan gula jawa, gula pasir, madu atau gula batu dalam sebuah gelas bercampur air panas. Jahe juga bisa ditambah rempah lain seperti cengkih, kayu manis dan daun pandan. Aroma menjadi khas nan menawan.</p>
 
-                    <a href="#" class="button">
+                    <a href="#menu" class="button">
                         Beli Sekarang <i class="ri-arrow-right-line"></i>
                     </a>
                 </div>
@@ -255,6 +255,7 @@
     
         </section>
 
+        <!--==================== Menu ====================-->
         <section class="menu section" id="menu">
             <span class="menu_subtitle">Pilih Minuman Favoritmu</span>
             <h4 class="menu_title">Menu</h4>
@@ -385,6 +386,61 @@
 
 
         </section>
+
+        <!--==================== CONTACT ====================-->
+        <section class="bantuan section container" id="bantuan">                
+            <div class="bantuan_container grid">
+                <div class="bantuan_box">
+                    <h2 class="bantuan_title">
+                        Hubungi kami sekarang <br> melalui informasi yang <br> tersedia.
+                    </h2>
+
+                    <div class="bantuan_data">
+                        <div class="bantuan_information">
+                            <h3 class="bantuan_subtitle">Hubungi kami untuk bantuan langsung</h3>
+                            <span class="bantuan_description">
+                                <i class="ri-phone-line bantuan_icon"></i>
+                                +62 823 2878 4895
+                            </span>
+                        </div>
+
+                        <div class="bantuan_information">
+                            <h3 class="bantuan_subtitle">Kirimkan pesan lewat mail</h3>
+                            <span class="bantuan_description">
+                                <i class="ri-mail-line bantuan_icon"></i>
+                                Yudharizqia182@email.com
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <form action="" class="bantuan_form">
+                    <div class="bantuan_inputs">
+                        <div class="bantuan_content">
+                            <input type="email" placeholder=" " class="bantuan_input">
+                            <label for="" class="bantuan_label">Email</label>
+                        </div>
+
+                        <div class="bantuan_content">
+                            <input type="text" placeholder=" " class="bantuan_input">
+                            <label for="" class="bantuan_label">Subject</label>
+                        </div>
+
+                        <div class="bantuan_content bantuan_area">
+                            <textarea name="message" placeholder=" " class="bantuan_input"></textarea>                              
+                            <label for="" class="bantuan_label">Message</label>
+                        </div>
+                    </div>
+
+                    <button class="button" id="bantuan_button">
+                        Kirim Pesan
+                        <i class="ri-arrow-right-up-line button_icon"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <?php include './components/user_footer.php'; ?>
 
         <!--========== SCROLL UP ==========-->
         <a href="#" class="scrollup" id="scroll-up">
