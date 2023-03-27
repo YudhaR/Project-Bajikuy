@@ -114,13 +114,13 @@ img {
   padding-block: 5rem 1rem;
 }
 
-.section__title {
+.section_title {
   font-size: var(--h1-font-size);
   font-family: var(--title-font);
   margin-bottom: 1.5rem;
 }
 
-.section__subtitle {
+.section_subtitle {
   display: block;
   font-size: var(--h2-font-size);
   font-family: var(--subtitle-font);
@@ -128,13 +128,42 @@ img {
   margin-bottom: 0.5rem;
 }
 
-.section__title, 
-.section__subtitle {
+.section_title, 
+.section_subtitle {
   text-align: center;
 }
 
 .main {
   overflow: hidden; /* For animation ScrollReveal */
+}
+
+.message{
+  position: sticky;
+  top:0;
+  max-width: 1200px;
+  padding:1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:1.5rem;
+  z-index: 1000;
+  background-color: #eee;
+  margin:0 auto;
+}
+
+.message span{
+  color: #6d6a75;
+  font-size: 1rem;
+}
+
+.message i{
+  color: #f3730f;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.message i:hover{
+  color:#f39644;
 }
 
 /*=============== HEADER & NAV ===============*/
@@ -240,6 +269,165 @@ img {
 }
 
 
+
+/*=============== LOGIN ===============*/
+
+.fbox{
+  margin-top: 6rem;
+  column-gap: 3rem;
+  justify-content: center;
+  border: 1px solid #1a1a1a82;
+  transition: 1s ease;
+  border-radius: 10px;
+  grid-template-columns: 250px;
+}
+
+.login_title{
+  margin-top: 2rem;
+}
+
+.login_regis{
+  letter-spacing: 1px;
+  color: #6d6a75;
+  margin-bottom: 2rem;
+}
+
+.login_inputs{
+  display: grid;
+  row-gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.login_content{
+  position: relative;
+  height: 3rem;
+  border-bottom: 1px solid #37323e;
+}
+
+.login_input{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1rem 1rem 0;
+  background: none;
+  color: #6d6a75;
+  border: none;
+  outline: none;
+  z-index: 1;
+}
+
+.login_label{
+  position: absolute;
+  top: .75rem;
+  width: 100%;
+  font-size: .85rem;
+  color: #6d6a75;
+  transition: .3s;
+}
+
+/*Input focus move up label*/
+.login_input:focus + .login_label{
+  top: -.75rem;
+  left: 0;
+  font-size: var(--smaller-font-size);
+  z-index: 10;
+}
+
+/*Input focus sticky top label*/
+.login_input:not(:placeholder-shown).login_input:not(:focus) + .login_label{
+  top: -.75rem;
+  font-size: var(--smaller-font-size);
+  z-index: 10;
+}
+
+#fbutton{
+  border: none;
+  margin-bottom: 2rem;
+}
+/*=============== REGISTER ===============*/
+.rbox{
+  margin-top: 6rem;
+  column-gap: 3rem;
+  justify-content: center;
+  border: 1px solid #1a1a1a82;
+  transition: 1s ease;
+  border-radius: 10px;
+  grid-template-columns: 250px;
+}
+
+.regis_title{
+  margin-top: 2rem;
+}
+
+.regis{
+  letter-spacing: 1px;
+  color: #6d6a75;
+  margin-bottom: 2rem;
+}
+
+.regis_inputs{
+  display: grid;
+  row-gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.regis_content{
+  position: relative;
+  height: 3rem;
+  border-bottom: 1px solid #37323e;
+}
+
+.regis_input{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1rem 1rem 0;
+  background: none;
+  color: #6d6a75;
+  border: none;
+  outline: none;
+  z-index: 1;
+}
+
+.regis_label{
+  position: absolute;
+  top: .75rem;
+  width: 100%;
+  font-size: .85rem;
+  color: #6d6a75;
+  transition: .3s;
+}
+
+/*Input focus move up label*/
+.regis_input:focus + .regis_label{
+  top: -.75rem;
+  left: 0;
+  font-size: var(--smaller-font-size);
+  z-index: 10;
+}
+
+/*Input focus sticky top label*/
+.regis_input:not(:placeholder-shown).regis_input:not(:focus) + .regis_label{
+  top: -.75rem;
+  font-size: var(--smaller-font-size);
+  z-index: 10;
+}
+
+#fbutton{
+  border: none;
+  margin-bottom: 2rem;
+}
+
+.regis_role{
+  letter-spacing: 1px;
+  color: #6d6a75;
+  padding: .2rem;
+  border-radius: 5px;
+}
 /*=============== HOME ===============*/
 .home {
   position: relative;
@@ -773,6 +961,7 @@ img {
   color: #fff;
   font-weight: var(--font-medium);
   transition: background .3s;
+  border: none;
 }
 
 .button i {
@@ -1022,6 +1211,18 @@ img {
     .footer_container{
       row-gap: 3rem;
       grid-template-columns: .8fr .6fr .6fr .6fr;
+    }
+
+    .fbox{
+      position: relative;
+      grid-template-columns: 550px;
+      width: 700px;
+    }
+
+    .rbox{
+      position: relative;
+      grid-template-columns: 550px;
+      width: 700px;
     }
 
 
