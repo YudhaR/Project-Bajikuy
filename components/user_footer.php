@@ -12,9 +12,9 @@
         <div class="footer_content">
             <h3 class="footer_title">Alamat kami</h3>
             <ul class="footer_data">
-                <li class="footer_information">1234 - Peru</li>
-                <li class="footer_information">La Libertad - 43210</li>
-                <li class="footer_information">123-456-789</li>
+                <li class="footer_information">50131 - Semarang</li>
+                <li class="footer_information">Jl. Abimanyu Raya - No. 6</li>
+                <li class="footer_information">Kel. Pendrikan Lor</li>
             </ul>
         </div>
         <div class="footer_content">

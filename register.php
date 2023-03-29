@@ -42,12 +42,12 @@ if(isset($_POST['submit'])){
         
                 }elseif($row['role'] == 'user'){
         
-                $_SESSION['role'] = $row['id'];
+                $_SESSION['user_id'] = $row['id'];
                 header('location:./index.php');
         
                 }elseif($row['role'] == 'seller'){
         
-                $_SESSION['role'] = $row['id'];
+                $_SESSION['seller_id'] = $row['id'];
                 header('location:./seller.php');
                 }
             }

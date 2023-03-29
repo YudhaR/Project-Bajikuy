@@ -69,3 +69,11 @@ const scrollActive = () =>{
 	})
 }
 window.addEventListener('scroll', scrollActive)
+
+
+/*=============== PROFILE SHOW ===============*/
+profile = document.querySelector('.profile');
+
+document.querySelector('#user-btn').onclick = () =>{
+    profile.classList.toggle('active');
+ }
