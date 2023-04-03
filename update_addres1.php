@@ -13,19 +13,13 @@ if(isset($_SESSION['user_id'])){
 
 if(isset($_POST['submit'])){
 
-    $email = $_POST['email'];
-    $email = filter_var($email, FILTER_SANITIZE_STRING);    
-
-    if(!empty($email)){
-        $select_email = $conn->prepare("SELECT * FROM `users` WHERE email = ?");
-        $select_email->execute([$email]);
-        if($select_email->rowCount() > 0){
-           $message[] = 'email already taken!';
-        }else{
-           $update_email = $conn->prepare("UPDATE `users` SET email = ? WHERE id = ?");
-           $update_email->execute([$email, $user_id]);
-        }
-     }
+    $address = $_POST['jalan'] .', '.$_POST['desa'].', '.$_POST['kecamatan'].', '.$_POST['kabupaten'] .' - '. $_POST['kode_pos'];
+    $address = filter_var($address, FILTER_SANITIZE_STRING);
+ 
+    $update_address = $conn->prepare("UPDATE `users` set address = ? WHERE id = ?");
+    $update_address->execute([$address, $user_id]);
+ 
+    $message[] = 'address saved!';
 
 }
 ?>
@@ -66,7 +60,7 @@ if(isset($_POST['submit'])){
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
-                <a href="#" class="nav__logo">
+                <a href="./index.php#home" class="nav__logo">
                     <img src="./img/bajikuyyy.png" alt="logo">
                 </a>
                 <div class="nav__menu" id="nav-menu">
@@ -146,20 +140,40 @@ if(isset($_POST['submit'])){
         <section class="pbox container grid">
             <div class="profile_container">
                 <div class="profile-box">
-                    <a href="./update_profile.php"><i class="ri-arrow-left-line icon_panah"></i></a>
-                    <span class="section_title profile_title1">Ubah Email</span> 
+                    <a href="./update_addres.php"><i class="ri-arrow-left-line icon_panah"></i></a>
+                    <span class="section_title profile_title1">Detail Alamat</span> 
                 </div>
 
                 <div class="profile-box">
-                    <h3 class="profile_title3">Biar akun anda aman, pastikan email anda aktif.</h3> 
+                    <h3 class="profile_title3">Tambahkan alamatmu untuk pengiriman belanja anda.</h3> 
                 </div>
 
-                <div class="updt_prof">
+                <div class="updt_alm">
                     <form action="" method="post">
-                        <div class="profileb">
-                            <div class="name_content">
-                                <input type="text" required placeholder="<?= $fetch_profile['email']; ?>" class="name_input" name="email">
-                                <label for="" class="name_label">Email</label>  
+                        <div class="almeb">
+                            <div class="alm_content">
+                                <input type="text" required placeholder=" " class="alm_input" name="jalan">
+                                <label for="" class="alm_label">Jalan</label>  
+                            </div>
+
+                            <div class="alm_content">
+                                <input type="text" required placeholder=" " class="alm_input" name="desa">
+                                <label for="" class="alm_label">Desa</label>  
+                            </div>
+
+                            <div class="alm_content">
+                                <input type="text" required placeholder=" " class="alm_input" name="kecamatan">
+                                <label for="" class="alm_label">Kecamatan</label>  
+                            </div>
+
+                            <div class="alm_content">
+                                <input type="text" required placeholder=" " class="alm_input" name="kabupaten">
+                                <label for="" class="alm_label">Kabupaten</label>  
+                            </div>
+
+                            <div class="alm_content">
+                                <input type="number" required placeholder=" " class="alm_input" name="kode_pos">
+                                <label for="" class="alm_label">Kode Pos</label>  
                             </div>
                         </div>
                         <input type="submit" value="Simpan" class="button" id="nbutton" name="submit">

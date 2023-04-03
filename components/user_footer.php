@@ -2,7 +2,7 @@
 <footer class="footer section">
     <div class="footer_container container grid">
         <div class="footer_content">
-            <a href="#" class="footer_logo">
+            <a href="./index.php" class="footer_logo">
                 <img src="./img/bajikuyyy.png" alt="logo">
             </a>
             <h3 class="footer_title">

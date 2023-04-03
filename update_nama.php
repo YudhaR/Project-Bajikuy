@@ -149,15 +149,18 @@ if(isset($_POST['submit'])){
                     <h3 class="profile_title3">pakai nama asli untuk memudahkan verifikasi. diharapkan nama sesuai <br> dengan atas nama di bank anda.</h3> 
                 </div>
 
-                <form action="" method="post">
-                    <div class="profile-box">
-                        <div class="name_content">
-                            <input type="text" required placeholder="<?= $fetch_profile['name']; ?>" class="nama_input" name="name">
-                            <label for="" class="name_label">Name</label>  
+                <div class="updt_prof">
+                    <form action="" method="post">
+                        <div class="profileb">
+                            <div class="name_content">
+                                <input type="text" required placeholder="<?= $fetch_profile['name']; ?>" class="name_input" name="name">
+                                <label for="" class="name_label">Nama</label>  
+                            </div>
                         </div>
-                    </div>
-                    <input type="submit" value="Simpan" class="button" id="nbutton" name="submit">
-                </form>
+                        <input type="submit" value="Simpan" class="button" id="nbutton" name="submit">
+                    </form>
+                </div>
+
 
 
             </div>
