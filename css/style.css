@@ -1,53 +1,6 @@
 /*=============== GOOGLE FONTS ===============*/
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Lora:wght@500;600&family=Poppins:wght@400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Butcherman&family=Poppins:wght@400;500;600;700&display=swap");
-/*=============== VARIABLES CSS ===============*/
-:root {
-  --header-height: 3.5rem;
-
-  /*========== Colors ==========*/
-  /*Color mode HSL(hue, saturation, lightness)*/
-  --first-color: #f39644;
-  --first-color-alt: #f3730f;
-  --title-color: #37323e;
-  --text-color: #6d6a75;
-  --text-color-light: hsl(19, 8%, 55%);
-  --body-color: #eee;
-  --container-color: hsl(19, 100%, 97%);
-
-  /*========== Font and typography ==========*/
-  /*.5rem = 8px | 1rem = 16px ...*/
-  --body-font: "Poppins", sans-serif;
-  --title-font: "Lora", serif;
-  --subtitle-font: "Dancing Script", cursive;
-  --biggest-font-size: 2.25rem;
-  --h1-font-size: 1.5rem;
-  --h2-font-size: 1.25rem;
-  --h3-font-size: 1rem;
-  --normal-font-size: .938rem;
-  --small-font-size: .813rem;
-  --smaller-font-size: .75rem;
-
-  /*========== Font weight ==========*/
-  --font-medium: 500;
-  --font-semi-bold: 600;
-
-  /*========== z index ==========*/
-  --z-tooltip: 10;
-  --z-fixed: 100;
-}
-@media screen and (min-width: 1024px) {
-  :root {
-    --biggest-font-size: 4rem;
-    --h1-font-size: 2.25rem;
-    --h2-font-size: 1.5rem;
-    --h3-font-size: 1.25rem;
-    --normal-font-size: 1rem;
-    --small-font-size: .875rem;
-    --smaller-font-size: .813rem;
-  }
-}
-
 /*=============== BASE ===============*/
 * {
   box-sizing: border-box;
@@ -60,16 +13,16 @@ html {
 }
 
 body {
-  font-family: var(--body-font);
-  font-size: var(--normal-font-size);
-  background-color: var(--body-color);
-  color: var(--text-color);
-  transition: background .4s; /* for dark mode animation */
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  background-color: #eee;
+  color: #6d6a75;
+  transition: background .4s; 
 }
 
 h1, h2, h3 {
-  color: var(--title-color);
-  font-weight: var(--font-medium);
+  color: #37323e;
+  font-weight: 500;
 }
 
 ul {
@@ -137,16 +90,16 @@ img {
 }
 
 .section_title {
-  font-size: var(--h1-font-size);
-  font-family: var(--title-font);
+  font-size: 1.5rem;
+  font-family: "Lora", serif;
   margin-bottom: 1.5rem;
 }
 
 .section_subtitle {
   display: block;
-  font-size: var(--h2-font-size);
-  font-family: var(--subtitle-font);
-  color: var(--first-color);
+  font-size: 1.25rem;
+  font-family: "Dancing Script", cursive;
+  color: #f39644;
   margin-bottom: 0.5rem;
 }
 
@@ -155,10 +108,7 @@ img {
   text-align: center;
 }
 
-.main {
-  overflow: hidden; /* For animation ScrollReveal */
-}
-
+/*=============== NOTIFIKASI ===============*/
 .message{
   position: sticky;
   top:0;
@@ -192,16 +142,16 @@ img {
 .header{
   position: fixed;
   width: 100%;
-  background-color: var(--body-color);
+  background-color: #eee;
   top: 0;
   left: 0;
-  z-index: var(--z-fixed);
+  z-index: 100;
   transition: box-shadow .3s, background .4s;
 }
 
 .nav {
   position: relative;
-  height:  var(--header-height);
+  height:  3.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -211,7 +161,7 @@ img {
 .nav__toggle,
 .nav__close {
   display: flex;
-  color: var(--title-color);
+  color: #37323e;
 }
 
 .nav__logo {
@@ -237,7 +187,7 @@ img {
     position: fixed;
     top: -100%;
     left: 0;
-    background-color: var(--body-color);
+    background-color: #eee;
     width: 100%;
     box-shadow: 0 8px 20px hsla(19, 64%, 24%, .1);
     padding-block: 3.5rem;
@@ -253,13 +203,13 @@ img {
 }
 
 .nav__link {
-  color: var(--title-color);
-  font-weight: var(--font-medium);
+  color: #37323e;
+  font-weight: 500;
   transition: color .4s;
 }
 
 .nav__link:hover {
-  color: var(--first-color);
+  color: #f39644;
 }
 
 .nav__close {
@@ -287,7 +237,7 @@ img {
 /* Active link */
 
 .active-link {
-  color: var(--first-color);
+  color: #f39644;
 }
 
 
@@ -353,14 +303,14 @@ img {
 .login_input:focus + .login_label{
   top: -.75rem;
   left: 0;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   z-index: 10;
 }
 
 /*Input focus sticky top label*/
 .login_input:not(:placeholder-shown).login_input:not(:focus) + .login_label{
   top: -.75rem;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   z-index: 10;
 }
 
@@ -428,14 +378,14 @@ img {
 .regis_input:focus + .regis_label{
   top: -.75rem;
   left: 0;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   z-index: 10;
 }
 
 /*Input focus sticky top label*/
 .regis_input:not(:placeholder-shown).regis_input:not(:focus) + .regis_label{
   top: -.75rem;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   z-index: 10;
 }
 
@@ -786,17 +736,82 @@ img {
 .alm_input:focus + .alm_label{
   top: -.75rem;
   left: 0;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   z-index: 10;
 }
 
 /*Input focus sticky top label*/
 .alm_input:not(:placeholder-shown).alm_input:not(:focus) + .alm_label{
   top: -.75rem;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   z-index: 10;
 }
 
+
+/*=============== UPDATE PASSWORD ===============*/
+.btn_pass{
+  display: flex;
+  justify-content: center;
+}
+
+.updt_pass{
+  margin-left: 3rem;
+}
+
+.pass_button{
+  width: 80%;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.passeb{
+  width: 250px;
+}
+
+.pass_content{
+  position: relative;
+  margin-top: 1.5rem;
+  height: 3rem;
+  border-bottom: 1px solid #37323e;
+}
+
+.pass_input{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 1rem 1rem 0;
+  background: none;
+  color: #6d6a75;
+  border: none;
+  outline: none;
+  z-index: 1;
+}
+
+.pass_label{
+  position: absolute;
+  top: .75rem;
+  width: 100%;
+  font-size: .85rem;
+  color: #6d6a75;
+  transition: .3s;
+}
+
+/*Input focus move up label*/
+.pass_input:focus + .pass_label{
+  top: -.75rem;
+  left: 0;
+  font-size: .813rem;
+  z-index: 10;
+}
+
+/*Input focus sticky top label*/
+.pass_input:not(:placeholder-shown).pass_input:not(:focus) + .pass_label{
+  top: -.75rem;
+  font-size: .813rem;
+  z-index: 10;
+}
 
 /*=============== HOME ===============*/
 .home {
@@ -901,7 +916,7 @@ img {
 
 /*=============== CERITA ===============*/
 .cerita_title{
-  font-size: var(--h1-font-size);
+  font-size: 1.5rem;
   font-family: "Lora", serif;;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -909,9 +924,9 @@ img {
 
 .cerita_subtitle {
   display: block;
-  font-size: var(--h2-font-size);
+  font-size: 1.5rem;
   font-family: "Dancing Script", cursive;;
-  color: var(--first-color);
+  color: #f39644;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -944,7 +959,7 @@ img {
 }
 
 .cerita1_title{
-  font-size: var(--h1-font-size);
+  font-size: 1.5rem;
   font-family: "Lora", serif;;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -966,15 +981,15 @@ img {
 /*=============== LOKASI ===============*/
 .lokasi_subtitle{
   display: block;
-  font-size: var(--h2-font-size);
+  font-size: 1.5rem;
   font-family: "Dancing Script", cursive;;
-  color: var(--first-color);
+  color: #f39644;
   margin-bottom: 0.5rem;
   text-align: center;
 }
 
 .lokasi_title{
-  font-size: var(--h1-font-size);
+  font-size: 1.5rem;
   font-family: "Lora", serif;;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -1069,15 +1084,15 @@ img {
 /*=============== MENU ===============*/
 .menu_subtitle{
   display: block;
-  font-size: var(--h2-font-size);
+  font-size: 1.5rem;
   font-family: "Dancing Script", cursive;;
-  color: var(--first-color);
+  color: #f39644;
   margin-bottom: 0.5rem;
   text-align: center;
 }
 
 .menu_title{
-  font-size: var(--h1-font-size);
+  font-size: 1.5rem;
   font-family: "Lora", serif;;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -1092,7 +1107,7 @@ img {
 }
 
 .bmen {
-  background-color: var(--container-color);
+  background-color: hsl(19, 100%, 97%);
   box-shadow:  0 8px 20px hsla(19, 64%, 48%, .08);
   border-radius: 1rem;
   margin-top: 2rem;
@@ -1114,22 +1129,22 @@ img {
 }
 
 .menu_name {
-  font-size: var(--h3-font-size);
-  font-family: var(--title-font);
+  font-size: 1.25rem;
+  font-family: "Lora", serif;
   margin-bottom: .25rem;
 }
 
 .menu_description {
   display: block;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   margin-bottom: 1rem;
   color: #6d6a75;
 }
 
 .menu_price {
-  font-size: var(--h3-font-size);
-  font-weight: var(--font-medium);
-  color: var(--first-color);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #f39644;
 }
 
 .menu_button {
@@ -1137,7 +1152,7 @@ img {
   margin-left: 11.5rem;
   margin-top: -2rem;
   margin-bottom: 2rem;
-  background-color: var(--first-color);
+  background-color: #f39644;
   padding: 6px;
   border-radius: 50%;
   border: none;
@@ -1152,7 +1167,7 @@ img {
 }
 
 .menu_button:hover {
-  background-color: var(--first-color-alt);
+  background-color: #f3730f;
 }
 
 .bmen:hover .menu_img {
@@ -1244,14 +1259,14 @@ img {
 .bantuan_input:focus + .bantuan_label{
   top: -.75rem;
   left: 0;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   z-index: 10;
 }
 
 /*Input focus sticky top label*/
 .bantuan_input:not(:placeholder-shown).bantuan_input:not(:focus) + .bantuan_label{
   top: -.75rem;
-  font-size: var(--smaller-font-size);
+  font-size: .813rem;
   z-index: 10;
 }
 
@@ -1325,11 +1340,11 @@ img {
   display: inline-flex;
   align-items: center;
   column-gap: .5rem;
-  background-color: var(--first-color);
+  background-color: #f39644;
   padding: 1rem 1.5rem;
   border-radius: 4rem;
   color: #fff;
-  font-weight: var(--font-medium);
+  font-weight: 500;
   transition: background .3s;
   border: none;
 }
@@ -1340,7 +1355,7 @@ img {
 }
 
 .button:hover {
-  background-color: var(--first-color-alt);
+  background-color: #f3730f;
 }
 
 .button:hover i {
@@ -1352,11 +1367,11 @@ img {
   display: inline-flex;
   align-items: center;
   column-gap: .5rem;
-  background-color: var(--first-color);
+  background-color: #f39644;
   padding: .5rem 1.5rem;
   border-radius: 10px;
   color: #fff;
-  font-weight: var(--font-medium);
+  font-weight: 500;
   transition: background .3s;
   border: none;
   margin-top: .5rem;
@@ -1368,7 +1383,7 @@ img {
 }
 
 .btn:hover{
-  background-color: var(--first-color-alt);
+  background-color: #f3730f;
 }
 
 .delete-btn:hover{
@@ -1443,7 +1458,7 @@ img {
 @media screen and (min-width: 1024px) {
 
     .nav {
-      height: calc(var(--header-height) + 1.5rem);
+      height: calc(3.5rem + 1.5rem);
     }
 
     .scrollup {
@@ -1664,11 +1679,11 @@ img {
       display: inline-flex;
       align-items: center;
       column-gap: .5rem;
-      background-color: var(--first-color);
+      background-color: #f39644;
       padding: .5rem 1.5rem;
       border-radius: 10px;
       color: #fff;
-      font-weight: var(--font-medium);
+      font-weight: 500;
       transition: background .3s;
       border: none;
       margin-top: 1rem;
@@ -1722,6 +1737,10 @@ img {
     }
 
     .almeb{
+      width: 500px;
+    }
+
+    .passeb{
       width: 500px;
     }
 
@@ -1780,14 +1799,14 @@ img {
   position: fixed;
   right: 1rem;
   bottom: -50%;
-  background-color: var(--container-color);
+  background-color: hsl(19, 100%, 97%);
   box-shadow: 0 4px 12px hsla(19, 64%, 24%, .1);
   display: inline-flex;
   padding: .35rem;
   border-radius: .25rem;
   font-size: 1.1rem;
-  color: var(--first-color);
-  z-index: var(--z-tooltip);
+  color: #f39644;
+  z-index: 10;
   transition: bottom .3s, transform .3s, background .4s;
 
 }

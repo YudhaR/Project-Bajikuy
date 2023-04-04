@@ -60,7 +60,7 @@ if(isset($_POST['submit'])){
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
-                <a href="./index.php#home" class="nav__logo">
+                <a href="./index.php" class="nav__logo">
                     <img src="./img/bajikuyyy.png" alt="logo">
                 </a>
                 <div class="nav__menu" id="nav-menu">
