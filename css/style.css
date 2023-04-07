@@ -1061,25 +1061,172 @@ img {
   border-bottom: 1px solid #1a1a1a82;
 }
 
-.bloks .blok .icons span{
-  font-size: 14px;
-  color:#777;
-  padding-inline: 1.9rem;
-}
-
-.bloks .blok .icons span i{
-  color:crimson;
-  padding-right: 5px;
-}
-
 .tombol{
   text-align: center;
 }
 
 #load{
   margin-top: 2rem;
+  text-align: center;
   cursor: pointer;
 }
+
+#load1{
+  margin-top: 2rem;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+
+.content{
+  text-transform: capitalize;
+}
+
+.content i{
+  margin-right: .2rem;
+}
+
+.lokasic{
+  display: absolute;
+  font-size: 14px;
+  font-weight: 400;
+  color:#777;
+  margin-left: -7rem;
+}
+
+.lokasic i{
+  color:crimson;
+}
+
+.lokasic1{
+  display: absolute;
+  font-size: 14px;
+  font-weight: 400;
+  color:#777;
+  margin-top: -1.3rem;
+  margin-left: 8rem;
+}
+
+.lokasic1 i{
+  color:crimson;
+}
+
+.icon_lokasi{
+  color: #1a1a1a;
+  text-align: center;
+  border-bottom: 1px solid #1a1a1a82;
+}
+
+.icon_lokasi i{
+  font-size: 132px;
+}
+
+.search_content{
+  position: relative;
+  height: 7rem;
+  text-align: center;
+}
+
+.search-form{
+  display: relative;
+  margin-top: 7rem;
+}
+
+.search_input{
+  display: absolute;
+  margin-left: -4rem;
+  padding: .5rem;
+  background-color: #eee;
+  width: 80%;
+  font-size: 16px;
+  border: 1px solid #777;
+  border-radius: 10px;
+}
+
+.search_container{
+  display: absolute;
+  margin-top: -2.1rem;
+  margin-left: 16.5rem;
+}
+
+.search_btn{
+  cursor: pointer;
+  width: 3rem;
+  font-size: 30px;
+  border: none;
+}
+
+.lokasi_subtitle1{
+  display: block;
+  font-size: 1.5rem;
+  font-family: "Dancing Script", cursive;;
+  color: #f39644;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  margin-top: -6rem;
+}
+
+.bloks1{
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 0.5fr));
+  gap: 25px;
+  justify-content: center;
+}
+
+.blok1{
+  border: 1px solid #1a1a1a82;
+  transition: 1s ease;
+  border-radius: 10px;
+  padding: 3px 3px 3px 3px;
+  text-align: center;
+  display: inline-block;
+}
+
+.blok1:hover{
+  box-shadow: 0 2px 40px rgba(33,33,33,.2); 
+}
+
+.bloks1 .blok1 .image img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.bloks1 .blok1 .image{
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid #1a1a1a82;
+}
+
+.bloks1 .blok1:hover .image img {
+  transform: scale(1.02);
+}
+
+.bloks1 .blok1 h3 {
+  font-size: 20px;
+  font-family: "Lora", serif;;
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #1a1a1a82;
+}
+
+.bloks1 .blok1 p{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #1a1a1a82;
+}
+
+
 
 /*=============== MENU ===============*/
 .menu_subtitle{
@@ -1607,7 +1754,6 @@ img {
     .bloks .blok .icons span{
       font-size: 14px;
       color:#777;
-      padding-inline: 1.5rem;
     }
   
     .menu_img {
@@ -1742,6 +1888,35 @@ img {
 
     .passeb{
       width: 500px;
+    }
+
+    .icon_lokasi i{
+      font-size: 175px;
+    }
+
+    .lokasic{
+      margin-left: -10rem;
+    }
+
+    .lokasic1{
+      margin-left: 10rem;
+    }
+
+    .search_container{
+      display: absolute;
+      margin-top: -2.1rem;
+      margin-left: 53rem;
+    }
+
+    .search_input{
+      display: absolute;
+      margin-left: -2rem;
+      padding: .5rem;
+      background-color: #eee;
+      width: 80%;
+      font-size: 16px;
+      border: 1px solid #777;
+      border-radius: 10px;
     }
 
 

@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
  
        if($row['role'] == 'admin'){
  
-          $_SESSION['admin_id'] = $row['id'];
+          $_SESSION['user_id'] = $row['id'];
           header('location:./admin/admin_page.php');
  
        }elseif($row['role'] == 'user'){
@@ -29,7 +29,7 @@ if(isset($_POST['submit'])){
 
        }elseif($row['role'] == 'seller'){
  
-         $_SESSION['seller_id'] = $row['id'];
+         $_SESSION['user_id'] = $row['id'];
          header('location:./seller.php');
    
  

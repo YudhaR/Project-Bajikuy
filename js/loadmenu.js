@@ -42,5 +42,4 @@ loadMore.onclick = () =>{
    if(current >= boxe.length) {
       loadMore.style.display = 'none';
    }
-   console.log(current)
 }

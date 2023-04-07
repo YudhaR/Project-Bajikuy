@@ -1,4 +1,5 @@
 let loadMoreBtn = document.querySelector('#load');
+let loadMoreBtn1 = document.querySelector('#load1');
 let currentItem = 3;
 
 loadMoreBtn.onclick = () =>{
@@ -42,5 +43,17 @@ loadMoreBtn.onclick = () =>{
    if(currentItem >= boxes.length){
       loadMoreBtn.style.display = 'none';
    }
-   console.log(currentItem)
+
+   if(currentItem >= 9){
+    loadMoreBtn.style.display = 'none';
+  }
+
+  if(currentItem < 9){
+    loadMoreBtn1.style.display = 'none';
+  }
+
+  if(currentItem >= 9){
+    loadMoreBtn1.style.display = 'inline-block';
+  }
+
 }

@@ -237,126 +237,178 @@ if(isset($_SESSION['user_id'])){
 
             <div class="bloks container">
 
-                <a href="" class="blok">
-                    <div class="image">
-                        <img src="./img/11.png" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>blog title goes here</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
-                        <div class="icons">
-                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
-                            <span> <i class="fas fa-user"></i> by admin </span>
+                <?php
+                    $select_lokasi = $conn->prepare("SELECT * FROM `lokasi`");
+                    $select_lokasi->execute();
+                    // $select_nama = "SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id";
+                    // $result = $conn->query($select_nama);
+                    // $fetch_name = $result->fetch(PDO::FETCH_ASSOC);
+                    if(($select_lokasi->rowCount() > 2)&&($select_lokasi->rowCount() < 4)){
+                        while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
+                            $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
+                            $select_nama->execute([$fetch_lokasi['user_id']]);
+                            $fetch_name = $select_nama->fetch();
+                ?>
+                    <a href="<?= $fetch_lokasi['link']; ?>" class="blok" target="_blank">
+                        <div class="image">
+                            <img src="update_img/<?= $fetch_lokasi['image']; ?>" alt="">
                         </div>
-                    </div>
-                </a>
-
-                <a href="" class="blok">
-                    <div class="image">
-                        <img src="./img/11.png" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>blog title goes here</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
-                        <div class="icons">
-                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
-                            <span> <i class="fas fa-user"></i> by admin </span>
+                        <div class="content">
+                            <h3><?= $fetch_lokasi['judul']; ?></h3>
+                            <p><?= $fetch_lokasi['deskripsi']; ?></p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
                         </div>
-                    </div>
-                </a>
-
-                <a href="" class="blok">
-                    <div class="image">
-                        <img src="./img/11.png" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>blog title goes here</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
-                        <div class="icons">
-                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
-                            <span> <i class="fas fa-user"></i> by admin </span>
+                    </a>
+                <?php
+                        }
+                    }else if($select_lokasi->rowCount() > 3){
+                        while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
+                            $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
+                            $select_nama->execute([$fetch_lokasi['user_id']]);
+                            $fetch_name = $select_nama->fetch();
+                ?>
+                    <a href="<?= $fetch_lokasi['link']; ?>" class="blok" target="_blank">
+                        <div class="image">
+                            <img src="update_img/<?= $fetch_lokasi['image']; ?>" alt="">
                         </div>
-                    </div>
-                </a>
-
-                <a href="" class="blok">
-                    <div class="image">
-                        <img src="./img/11.png" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>blog title goes here</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
-                        <div class="icons">
-                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
-                            <span> <i class="fas fa-user"></i> by admin </span>
+                        <div class="content">
+                            <h3><?= $fetch_lokasi['judul']; ?></h3>
+                            <p><?= $fetch_lokasi['deskripsi']; ?></p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
                         </div>
-                    </div>
-                </a>
-
-                <a href="" class="blok">
-                    <div class="image">
-                        <img src="./img/11.png" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>blog title goes here</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
-                        <div class="icons">
-                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
-                            <span> <i class="fas fa-user"></i> by admin </span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="" class="blok">
-                    <div class="image">
-                        <img src="./img/11.png" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>blog title goes here</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
-                        <div class="icons">
-                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
-                            <span> <i class="fas fa-user"></i> by admin </span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="" class="blok">
-                    <div class="image">
-                        <img src="./img/11.png" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>blog title goes here</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
-                        <div class="icons">
-                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
-                            <span> <i class="fas fa-user"></i> by admin </span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="" class="blok">
-                    <div class="image">
-                        <img src="./img/11.png" alt="">
-                    </div>
-                    <div class="content">
-                        <h3>blog title goes here</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
-                        <div class="icons">
-                            <span> <i class="fas fa-calendar"></i> 21st may, 2022 </span>
-                            <span> <i class="fas fa-user"></i> by admin </span>
-                        </div>
-                    </div>
-                </a>
-
-                
+                    </a>
+                <?php
+                        }
+                ?>
             </div>
-
             <div class="tombol container">
                 <div id="load" class="button"> Lebih Banyak </div>
             </div>
-            
-    
+            <div class="tombol container">
+                <a href="./lokasi.php" id="load1" class="button"> Lebih Banyak </a>
+            </div>
+            <div class="bloks container">
+                <?php
+                    }else if(($select_lokasi->rowCount() > 0)&&($select_lokasi->rowCount() < 2)){
+                        while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
+                            $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
+                            $select_nama->execute([$fetch_lokasi['user_id']]);
+                            $fetch_name = $select_nama->fetch();
+                ?>
+                    <a href="<?= $fetch_lokasi['link']; ?>" class="blok" target="_blank">
+                        <div class="image">
+                            <img src="update_img/<?= $fetch_lokasi['image']; ?>" alt="">
+                        </div>
+                        <div class="content">
+                            <h3><?= $fetch_lokasi['judul']; ?></h3>
+                            <p><?= $fetch_lokasi['deskripsi']; ?></p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
+                        </div>
+                    </a>
+
+                    <a href="#lokasi" class="blok">
+                        <div class="icon_lokasi">
+                            <i class="ri-cloud-off-fill"></i>
+                        </div>
+                        <div class="content">
+                            <h3>Segera Tersedia!</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                        </div>
+                    </a>
+
+                    <a href="#lokasi" class="blok">
+                        <div class="icon_lokasi">
+                            <i class="ri-cloud-off-fill"></i>
+                        </div>
+                        <div class="content">
+                            <h3>Segera Tersedia!</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                        </div>
+                    </a>
+
+                <?php
+                        }
+                    }else if(($select_lokasi->rowCount() > 1)&&($select_lokasi->rowCount() < 3)){
+                        while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
+                            $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
+                            $select_nama->execute([$fetch_lokasi['user_id']]);
+                            $fetch_name = $select_nama->fetch();
+                ?>
+                    <a href="<?= $fetch_lokasi['link']; ?>" class="blok" target="_blank">
+                        <div class="image">
+                            <img src="update_img/<?= $fetch_lokasi['image']; ?>" alt="">
+                        </div>
+                        <div class="content">
+                            <h3><?= $fetch_lokasi['judul']; ?></h3>
+                            <p><?= $fetch_lokasi['deskripsi']; ?></p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
+                        </div>
+                    </a>
+
+                <?php
+                        }
+                ?>
+                    <a href="#lokasi" class="blok">
+                        <div class="icon_lokasi">
+                            <i class="ri-cloud-off-fill"></i>
+                        </div>
+                        <div class="content">
+                            <h3>Segera Tersedia!</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                        </div>
+                    </a>
+                <?php
+                    }else{
+                ?>
+                    <a href="#lokasi" class="blok">
+                        <div class="icon_lokasi">
+                            <i class="ri-cloud-off-fill"></i>
+                        </div>
+                        <div class="content">
+                            <h3>Segera Tersedia!</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                        </div>
+                    </a>
+
+                    <a href="#lokasi" class="blok">
+                        <div class="icon_lokasi">
+                            <i class="ri-cloud-off-fill"></i>
+                        </div>
+                        <div class="content">
+                            <h3>Segera Tersedia!</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                        </div>
+                    </a>
+
+                    <a href="#lokasi" class="blok">
+                        <div class="icon_lokasi">
+                            <i class="ri-cloud-off-fill"></i>
+                        </div>
+                        <div class="content">
+                            <h3>Segera Tersedia!</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                        </div>
+                    </a>
+                <?php
+                    }
+                ?>
+            </div>
     
         </section>
 
