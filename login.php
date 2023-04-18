@@ -8,7 +8,7 @@ if(isset($_POST['submit'])){
 
     $email = $_POST['email'];
     $email = filter_var($email, FILTER_SANITIZE_STRING);
-    $pass = sha1($_POST['pass']);
+    $pass = $_POST['pass'];
     $pass = filter_var($pass, FILTER_SANITIZE_STRING);
  
     $select = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
        if($row['role'] == 'admin'){
  
           $_SESSION['user_id'] = $row['id'];
-          header('location:./admin/admin_page.php');
+          header('location:./admin/index.php');
  
        }elseif($row['role'] == 'user'){
  
@@ -30,15 +30,15 @@ if(isset($_POST['submit'])){
        }elseif($row['role'] == 'seller'){
  
          $_SESSION['user_id'] = $row['id'];
-         header('location:./seller.php');
+         header('location:./seller/index.php');
    
  
        }else{
-          $message[] = 'no user found!';
+          $message[] = 'Email Tidak Diketahui!';
        }
        
     }else{
-       $message[] = 'incorrect email or password!';
+       $message[] = 'Email atau Password Salah!';
     }
  
  }
@@ -68,8 +68,11 @@ if(isset($_POST['submit'])){
       foreach($message as $message){
          echo '
          <div class="message">
-            <span>'.$message.'</span>
-            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+            <div class="notif grid">
+               <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
+               <i class="fa-solid fa-circle-exclamation notif_ic"></i>
+               <span>'.$message.'</span>
+            </div>
          </div>
          ';
       }

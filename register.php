@@ -12,9 +12,9 @@ if(isset($_POST['submit'])){
     $email = filter_var($email, FILTER_SANITIZE_STRING);
     $number = $_POST['number'];
     $number = filter_var($number, FILTER_SANITIZE_STRING);
-    $pass = sha1($_POST['pass']);
+    $pass = $_POST['pass'];
     $pass = filter_var($pass, FILTER_SANITIZE_STRING);
-    $cpass = sha1($_POST['cpass']);
+    $cpass = $_POST['cpass'];
     $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
     $role = $_POST['role'];
  
@@ -23,22 +23,22 @@ if(isset($_POST['submit'])){
     $row = $select_user->fetch(PDO::FETCH_ASSOC);
  
     if($select_user->rowCount() > 0){
-       $message[] = 'email or number already exists!';
+       $message[] = 'Email atau Nomor Sudah Terdaftar!';
     }else{
        if($pass != $cpass){
-          $message[] = 'confirm password not matched!';
+          $message[] = 'Konfirmasi Password Salah!';
        }else{
           $insert_user = $conn->prepare("INSERT INTO `users`(name, email, number, password, role) VALUES(?,?,?,?,?)");
           $insert_user->execute([$name, $email, $number, $cpass, $role]);
           $select_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ?");
           $select_user->execute([$email, $pass]);
           $row = $select_user->fetch(PDO::FETCH_ASSOC);
-          if($select->rowCount() > 0){
+          if($select_user->rowCount() > 0){
  
                 if($row['role'] == 'admin'){
         
                 $_SESSION['user_id'] = $row['id'];
-                header('location:./admin/admin_page.php');
+                header('location:./admin/index.php');
         
                 }elseif($row['role'] == 'user'){
         
@@ -48,7 +48,7 @@ if(isset($_POST['submit'])){
                 }elseif($row['role'] == 'seller'){
         
                 $_SESSION['user_id'] = $row['id'];
-                header('location:./seller.php');
+                header('location:./seller/index.php');
                 }
             }
         }
@@ -81,8 +81,11 @@ if(isset($_POST['submit'])){
       foreach($message as $message){
          echo '
          <div class="message">
-            <span>'.$message.'</span>
-            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+            <div class="notif grid">
+                  <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
+                  <i class="fa-solid fa-circle-exclamation notif_ic"></i>
+                  <span>'.$message.'</span>
+            </div>
          </div>
          ';
       }

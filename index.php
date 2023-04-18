@@ -12,6 +12,17 @@ if(isset($_SESSION['user_id'])){
 
 // include 'components/add_cart.php';
 
+if(isset($_POST['submit'])){
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $pesan = $_POST['pesan'];
+
+    $insert_bantuan = $conn->prepare("INSERT INTO `messages`(email, subject, message) VALUES(?,?,?)");
+    $insert_bantuan->execute([$email, $subject, $pesan]);
+
+    $message[] = 'Pesan berhasil dikirim!';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +36,7 @@ if(isset($_SESSION['user_id'])){
 
         <!--=============== ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="./css/style.css">
@@ -35,18 +46,21 @@ if(isset($_SESSION['user_id'])){
     <body>
     
 
-        <?php
+    <?php
         if(isset($message)){
-        foreach($message as $message){
-            echo '
-            <div class="message">
-                <span>'.$message.'</span>
-                <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-            </div>
-            ';
+            foreach($message as $message){
+                echo '
+                <div class="message">
+                    <div class="notif grid">
+                        <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
+                        <i class="fa-solid fa-circle-exclamation notif_ic"></i>
+                        <span>'.$message.'</span>
+                    </div>
+                </div>
+                ';
+            }
         }
-        }
-        ?>
+    ?>
 
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
@@ -571,25 +585,25 @@ if(isset($_SESSION['user_id'])){
                     </div>
                 </div>
 
-                <form action="" class="bantuan_form">
+                <form action="" method="post" class="bantuan_form">
                     <div class="bantuan_inputs">
                         <div class="bantuan_content">
-                            <input type="email" placeholder=" " class="bantuan_input">
+                            <input type="email" required placeholder=" " class="bantuan_input" name="email">
                             <label for="" class="bantuan_label">Email</label>
                         </div>
 
                         <div class="bantuan_content">
-                            <input type="text" placeholder=" " class="bantuan_input">
+                            <input type="text" required placeholder=" " class="bantuan_input" name="subject">
                             <label for="" class="bantuan_label">Subject</label>
                         </div>
 
                         <div class="bantuan_content bantuan_area">
-                            <textarea name="message" placeholder=" " class="bantuan_input"></textarea>                              
+                            <textarea name="pesan" required placeholder=" " class="bantuan_input"></textarea>                              
                             <label for="" class="bantuan_label">Message</label>
                         </div>
                     </div>
 
-                    <button class="button" id="bantuan_button">
+                    <button type="submit" class="button" id="bantuan_button" name="submit">
                         Kirim Pesan
                         <i class="ri-arrow-right-up-line button_icon"></i>
                     </button>

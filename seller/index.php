@@ -1,0 +1,306 @@
+<?php
+
+include '../components/connect.php';
+
+session_start();
+
+if(isset($_SESSION['user_id'])){
+   $user_id = $_SESSION['user_id'];
+   $select = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+   $select->execute([$user_id]);
+   $row = $select->fetch(PDO::FETCH_ASSOC);
+   if($row['role'] != 'seller'){
+        header('location:../index.php');
+   }
+
+}else{
+   $user_id = '';
+   header('location:../index.php');
+}
+
+if(isset($_GET['delete'])){
+
+    $delete_id = $_GET['delete'];
+    
+    $select_judul = $conn->prepare("SELECT * FROM `lokasi` WHERE id = ?");
+    $select_judul->execute([$delete_id]);
+    $data = $select_judul->fetch(PDO::FETCH_ASSOC);
+
+    $judul = $data['judul'];
+
+    $select_uid = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+    $select_uid->execute([$user_id]);
+    $data1 = $select_uid->fetch(PDO::FETCH_ASSOC);
+
+    $uid = $data1['id'];
+    $uname = $data1['name'];
+    $uemail = $data1['email'];
+    $urole = $data1['role'];
+    $status = "Menghapus";
+    $waktu1 = date('Y-m-d H:i:s');
+
+    $insert_update = $conn->prepare("INSERT INTO `tabel_lokasi`(user_id, name, email, judul, role, status, waktu) VALUES(?,?,?,?,?,?,?)");
+    $insert_update->execute([$uid, $uname, $uemail, $judul, $urole, $status, $waktu1]);
+
+
+    $delete_product_image = $conn->prepare("SELECT * FROM `lokasi` WHERE id = ?");
+    $delete_product_image->execute([$delete_id]);
+    $fetch_delete_image = $delete_product_image->fetch(PDO::FETCH_ASSOC);
+    unlink('../update_img/'.$fetch_delete_image['image']);
+    $delete_product = $conn->prepare("DELETE FROM `lokasi` WHERE id = ?");
+    $delete_product->execute([$delete_id]);
+    header('location:../seller/index.php');
+    
+}
+?>
+
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--=============== FAVICON ===============-->
+        <link rel="shortcut icon" href="../img/icon.png" type="image/x-icon">
+
+        <!--=============== ICONS ===============-->
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+        <!--=============== CSS ===============-->
+        <link rel="stylesheet" href="../css/style.css">
+
+        <title>Bajikuy</title>
+    </head>
+    <body>
+    
+
+        <?php
+            if(isset($message)){
+                foreach($message as $message){
+                    echo '
+                    <div class="message">
+                        <div class="notif grid">
+                            <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
+                            <i class="fa-solid fa-circle-exclamation notif_ic"></i>
+                            <span>'.$message.'</span>
+                        </div>
+                    </div>
+                    ';
+                }
+            }
+        ?>
+
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="../seller/index.php" class="nav__logo">
+                    <img src="../img/bajikuyyy.png" alt="logo">
+                </a>
+                <div class="nav__menu nav_menu1" id="nav-menu">
+                    <!-- <ul class="nav__list">
+                        <li class="nav__item">
+                            <a href="#" class="nav__link active-link">Lokasi</a>
+                        </li>
+                    </ul>
+                    Close button -->
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+                </div>
+                <div class="nav__buttons">
+                    <div id="user-btn" class="fas fa-user"></div>
+                    <!-- Toggle button -->
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-apps-2-fill"></i>
+                    </div>
+                </div>
+
+                <div class="profile">
+                <?php
+                    $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+                    $select_profile->execute([$user_id]);
+                    if($select_profile->rowCount() > 0){
+                    $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
+                ?>
+                <p class="name"><?= $fetch_profile['name']; ?></p>
+                <div class="flex">
+                    <a href="../seller/profile.php" class="btn">Profile</a>
+                    <a href="../components/seller_logout.php" onclick="return confirm('Apakah anda yakin keluar?');" class="delete-btn">logout</a>
+                </div>
+                <p class="account">
+                    <a href="../login.php">Login</a> or
+                    <a href="../register.php">Register</a>
+                </p> 
+                <?php
+                    }else{
+                ?>
+                    <p class="name">Anda Belum Login!</p>
+                    <a href="../login.php" class="btn">login</a>
+                <?php
+                }
+                ?>
+            </div>
+
+
+                
+            </nav>
+            
+        </header> 
+
+        <section class="lokasi section" id="lokasi1">
+                <div class="bloks1 container">
+
+                    <?php
+                        $select_lokasi = $conn->prepare("SELECT * FROM `lokasi` WHERE user_id = \"$user_id\"");
+                        $select_lokasi->execute();
+                        if($select_lokasi->rowCount() > 1){
+                    ?>
+                        <div class="blok1">
+                            <div class="icon_lokasi">
+                                <i class="ri-cloud-off-fill"></i>
+                            </div>
+                            <div class="content">
+                                <h3>penambahan terbatas!</h3>
+                                <p>Tambahkan lokasi warungmu untuk memudahkan pelanggan untuk menemukan dan mencoba produkmu!</p>
+                                <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                                <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                                <div class="tombol container" >
+                                    <a href="../seller/add_lokasi.php" id="lokbtn" class="button"> Tambahkan </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                            while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
+                                $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
+                                $select_nama->execute([$fetch_lokasi['user_id']]);
+                                $fetch_name = $select_nama->fetch();
+                    ?>
+                        <div class="blok1">
+                            <div class="image">
+                                <img src="../update_img/<?= $fetch_lokasi['image']; ?>" alt="">
+                            </div>
+                            <div class="content">
+                                <h3><?= $fetch_lokasi['judul']; ?></h3>
+                                <p><?= $fetch_lokasi['deskripsi']; ?></p>
+                                <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
+                                <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
+                                <div class="tombol-container">
+                                    <a href="../seller/update_lokasi.php?update=<?= $fetch_lokasi['id']; ?>" class="button" id="lokabtn">update</a>
+                                    <a href="../seller/index.php?delete=<?= $fetch_lokasi['id']; ?>" class="button" id="lokabtn" onclick="return confirm('delete this product?');">delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                                }
+                            }else if($select_lokasi->rowCount() > 0){
+                    ?>
+                        <div class="blok1">
+                            <div class="icon_lokasi">
+                                <i class="ri-upload-cloud-2-fill"></i>
+                            </div>
+                            <div class="content">
+                                <h3>penambahan terbatas!</h3>
+                                <p>Tambahkan lokasi warungmu untuk memudahkan pelanggan untuk menemukan dan mencoba produkmu!</p>
+                                <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                                <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                                <div class="tombol container" >
+                                    <a href="../seller/add_lokasi.php" class="button" id="lokabtn"> Tambahkan </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                            while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
+                                $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
+                                $select_nama->execute([$fetch_lokasi['user_id']]);
+                                $fetch_name = $select_nama->fetch();
+                    ?>
+                        <div class="blok1">
+                            <div class="image">
+                                <img src="../update_img/<?= $fetch_lokasi['image']; ?>" alt="">
+                            </div>
+                            <div class="content">
+                                <h3><?= $fetch_lokasi['judul']; ?></h3>
+                                <p><?= $fetch_lokasi['deskripsi']; ?></p>
+                                <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
+                                <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
+                                <div class="tombol-container">
+                                    <a href="../seller/update_lokasi.php?update=<?= $fetch_lokasi['id']; ?>" class="button" id="lokabtn">update</a>
+                                    <a href="../seller/index.php?delete=<?= $fetch_lokasi['id']; ?>" class="button" id="lokabtn" onclick="return confirm('delete this product?');">delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                                }
+                    ?>
+                        <div class="blok1">
+                            <div class="icon_lokasi">
+                                <i class="ri-cloud-off-fill"></i>
+                            </div>
+                            <div class="content">
+                                <h3>Segera Tersedia!</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                                <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                                <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                            </div>
+                        </div>
+                    <?php
+                            }else if($select_lokasi->rowCount() >= 0){
+                    ?>
+                        <div class="blok1">
+                            <div class="icon_lokasi">
+                                <i class="ri-upload-cloud-2-fill"></i>
+                            </div>
+                            <div class="content">
+                                <h3>penambahan terbatas!</h3>
+                                <p>Tambahkan lokasi warungmu untuk memudahkan pelanggan untuk menemukan dan mencoba produkmu!</p>
+                                <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                                <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                                <div class="tombol container" >
+                                    <a href="../seller/add_lokasi.php" class="button" id="lokabtn"> Tambahkan </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="blok1">
+                            <div class="icon_lokasi">
+                                <i class="ri-cloud-off-fill"></i>
+                            </div>
+                            <div class="content">
+                                <h3>Segera Tersedia!</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                                <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                                <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                            </div>
+                        </div>
+
+                        <div class="blok1">
+                            <div class="icon_lokasi">
+                                <i class="ri-cloud-off-fill"></i>
+                            </div>
+                            <div class="content">
+                                <h3>Segera Tersedia!</h3>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod, adipisci!</p>
+                                <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                                <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                            </div>
+                        </div>
+                    <?php
+                                }
+                    ?>
+                </div>
+
+        
+        
+
+        <!--========== SCROLL UP ==========-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line"></i>
+        </a>
+
+        <!--=============== SCROLLREVEAL ===============-->
+        <script src="../js/scrollreveal.min.js"></script>
+
+        <!--=============== Header JS ===============-->
+        <script src="../js/header.js"></script>

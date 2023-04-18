@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
     if(!empty($name)){
         $update_name = $conn->prepare("UPDATE `users` SET name = ? WHERE id = ?");
         $update_name->execute([$name, $user_id]);
-        $message[] = 'Nama berhasil terganti!';
+        $message[] = 'Nama Berhasil Terganti!';
     }
 
 }
@@ -46,16 +46,19 @@ if(isset($_POST['submit'])){
     <body>
 
         <?php
-        if(isset($message)){
-        foreach($message as $message){
-            echo '
-            <div class="message">
-                <span>'.$message.'</span>
-                <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-            </div>
-            ';
-        }
-        }
+            if(isset($message)){
+                foreach($message as $message){
+                    echo '
+                    <div class="message">
+                        <div class="notif grid">
+                            <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
+                            <i class="fa-solid fa-circle-exclamation notif_ic"></i>
+                            <span>'.$message.'</span>
+                        </div>
+                    </div>
+                    ';
+                }
+            }
         ?>
 
         <!--==================== HEADER ====================-->

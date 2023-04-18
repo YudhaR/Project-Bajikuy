@@ -34,16 +34,19 @@ if(isset($_SESSION['user_id'])){
     
 
         <?php
-        if(isset($message)){
-        foreach($message as $message){
-            echo '
-            <div class="message">
-                <span>'.$message.'</span>
-                <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
-            </div>
-            ';
-        }
-        }
+            if(isset($message)){
+                foreach($message as $message){
+                    echo '
+                    <div class="message">
+                        <div class="notif grid">
+                            <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
+                            <i class="fa-solid fa-circle-exclamation notif_ic"></i>
+                            <span>'.$message.'</span>
+                        </div>
+                    </div>
+                    ';
+                }
+            }
         ?>
 
         <!--==================== HEADER ====================-->
@@ -171,7 +174,7 @@ if(isset($_SESSION['user_id'])){
                         }
                     ?>
                     <?php
-                        if(!isset($_POST['search_box']) OR isset($_POST['search_btn'])){
+                        if(!isset($_POST['search_box']) OR !isset($_POST['search_btn'])){
                             $select_lokasi = $conn->prepare("SELECT * FROM `lokasi`");
                             $select_lokasi->execute();
                             if($select_lokasi->rowCount() > 0){

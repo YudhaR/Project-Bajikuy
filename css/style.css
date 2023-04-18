@@ -109,35 +109,40 @@ img {
 }
 
 /*=============== NOTIFIKASI ===============*/
-.message{
-  position: sticky;
-  top:0;
-  max-width: 1200px;
-  padding:1.5rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap:1.5rem;
-  z-index: 1000;
-  background-color: #eee;
-  margin:0 auto;
-}
 
 .message span{
   color: #6d6a75;
   font-size: 1rem;
 }
 
-.message i{
-  color: #f3730f;
-  font-size: 1.5rem;
+.notif_ic1{
+  color: #6d6a75;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
-.message i:hover{
-  color:#f39644;
+.notif_ic1:hover{
+  color:#777;
 }
 
+.notif{
+  padding:1.5rem 2rem;
+}
+
+.notif_ic{
+  text-align: center;
+  font-size: 4rem;
+}
+
+.message{
+  position: fixed;
+  justify-content: center;
+  background-color: #eee;
+  z-index: 1000;
+  border: 1px solid #1a1a1a82;
+  border-radius: 10px;
+  margin-left: 9%;
+}
 /*=============== HEADER & NAV ===============*/
 .header{
   position: fixed;
@@ -219,6 +224,8 @@ img {
   font-size: 1.5rem;
   cursor: pointer;
 }
+
+
 
 /* Show menu */
 
@@ -1226,8 +1233,134 @@ img {
   border-bottom: 1px solid #1a1a1a82;
 }
 
+#lokbtn{
+  cursor: pointer;
+  pointer-events: none;
+}
+
+#lokbtn1{
+  cursor: pointer;
+  pointer-events: none;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#lokabtn{
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.loka_title{
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #6d6a75;
+  margin-top: 2rem;
+}
 
 
+/*=============== HISTORY LOKASI ===============*/
+.table-responsive {
+  width: 100%;
+  overflow: auto;
+}
+
+.tambah{
+  margin-top: 10%;
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  color: #22BAA0;
+  background: #e5f8ed;
+  padding: .5rem 1rem;
+  border-radius: 20px;
+  font-size: .8rem;
+}
+
+.hapus{
+  margin-top: 10%;
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  color: #e63946;
+  background: #ffc8dd;
+  padding: .5rem 1rem;
+  border-radius: 20px;
+  font-size: .8rem;
+}
+
+.edit{
+  margin-top: 10%;
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  color: #eb5e28;
+  background: #ffd166;
+  padding: .5rem 1rem;
+  border-radius: 20px;
+  font-size: .8rem;
+}
+
+
+table {
+  border-collapse: collapse;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+table thead tr {
+  background: #e9edf2;
+}
+
+table thead th {
+  padding: 1rem 0rem;
+  text-align: center;
+  color: #444;
+  font-size: .9rem;
+}
+
+table thead th:first-child {
+  padding-left: 1rem;
+}
+
+table tbody td {
+  padding: 1rem 0rem;
+  color: #444;
+}
+
+table tbody td:first-child {
+  padding-left: 1rem;
+  font-weight: 600;
+  font-size: .9rem;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dee2e8;
+}
+
+.client {
+  display: flex;
+  padding-left: .8rem;
+  text-align: left;
+  align-items: center;
+}
+
+.client-info h4 {
+  color: #555;
+  font-size: .95rem;
+}
+
+.client-info small {
+  color: #777;
+}
+
+.actions span {
+  display: inline-block;
+  font-size: 1.5rem;
+  margin-right: .5rem;
+}
 /*=============== MENU ===============*/
 .menu_subtitle{
   display: block;
@@ -1420,6 +1553,27 @@ img {
 #bantuan_button{
   border: none;
 }
+
+.ban_boxs{
+  margin-top: 2rem;
+  padding-top: .5rem;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.ban_boxs1{
+  margin: 0rem 1rem 1rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 0.5fr));
+  justify-content: center;
+}
+
+.ban_box{
+  margin: 1rem 20px 0px 0px;
+  padding-top: .5rem;
+  border: 1px solid #1a1a1a82;
+  border-radius: 10px;
+}
 /*=============== FOOTER ===============*/
 .footer_title{
   letter-spacing: 1px;
@@ -1593,7 +1747,7 @@ img {
     .nav__menu {
       margin-left: auto;
     }
-
+    
 
 
 
@@ -1612,6 +1766,10 @@ img {
       right: 3rem;
     }
 
+    .message{
+      margin-top: 5%;
+      margin-left: 40%;
+    }
 
     .home_container{
       position: relative;
@@ -1918,6 +2076,7 @@ img {
       border: 1px solid #777;
       border-radius: 10px;
     }
+
 
 
 
