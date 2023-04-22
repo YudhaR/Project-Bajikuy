@@ -10,6 +10,8 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
 };
 
+include 'components/add_cart.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +25,7 @@ if(isset($_SESSION['user_id'])){
 
         <!--=============== ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="./css/style.css">
@@ -33,21 +35,21 @@ if(isset($_SESSION['user_id'])){
     <body>
     
 
-        <?php
-            if(isset($message)){
-                foreach($message as $message){
-                    echo '
-                    <div class="message">
-                        <div class="notif grid">
-                            <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
-                            <i class="fa-solid fa-circle-exclamation notif_ic"></i>
-                            <span>'.$message.'</span>
-                        </div>
+    <?php
+        if(isset($message)){
+            foreach($message as $message){
+                echo '
+                <div class="message">
+                    <div class="notif grid">
+                        <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
+                        <i class="fa-solid fa-circle-exclamation notif_ic"></i>
+                        <span>'.$message.'</span>
                     </div>
-                    ';
-                }
+                </div>
+                ';
             }
-        ?>
+        }
+    ?>
 
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
@@ -58,16 +60,16 @@ if(isset($_SESSION['user_id'])){
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="./index.php#home" class="nav__link">Beranda</a>
+                            <a href="./index.php#home" class="nav__link ">Beranda</a>
                         </li>
                         <li class="nav__item">
                             <a href="./index.php#cerita"about class="nav__link">Cerita</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./index.php#lokasi" class="nav__link  active-link">Lokasi</a>
+                            <a href="./index.php#lokasi" class="nav__link">Lokasi</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./index.php#menu" class="nav__link">Menu</a>
+                            <a href="./index.php#menu" class="nav__link active-link">Menu</a>
                         </li>
                         <li class="nav__item">
                             <a href="./pesanan.php" class="nav__link">Pesanan</a>
@@ -127,10 +129,10 @@ if(isset($_SESSION['user_id'])){
             
         </header>
 
-        <section class="search-form container">
+        <section class="search-form container" id="menu">
             <div class="search_content">
                 <form method="post" action="">
-                    <input type="text" name="search_box" placeholder="Cari Lokasi Didekatmu..." class="search_input">
+                    <input type="text" name="search_box" placeholder="Cari Menu Kesukaanmu..." class="search_input">
                     <div class="search_container">
                         <button type="submit" name="search_btn" class="search_btn">
                             <i class="ri-search-line"></i>
@@ -141,79 +143,91 @@ if(isset($_SESSION['user_id'])){
 
         </section>
 
-        <section class="lokasi section" id="lokasi1">
-            <span class="lokasi_subtitle1">Secangkir Gelasmu</span>
-            <h4 class="lokasi_title">Lokasi</h4>
-                <div class="bloks1 container">
+        <section class="menu section" id="menu">
+            <span class="menu_subtitle">Pilih Minuman Favoritmu</span>
+            <h4 class="menu_title">Menu</h4>
 
-                    <?php
-                        if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
-                            $search_box = $_POST['search_box'];
-                            $select_lokasi = $conn->prepare("SELECT * FROM `lokasi` WHERE judul LIKE '%{$search_box}%'");
-                            $select_lokasi->execute();
-                            if($select_lokasi->rowCount() > 0){
-                                while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
-                                    $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
-                                    $select_nama->execute([$fetch_lokasi['user_id']]);
-                                    $fetch_name = $select_nama->fetch();
-                    ?>
-                            <a href="<?= $fetch_lokasi['link']; ?>" class="blok1" target="_blank">
-                                <div class="image">
-                                    <img src="update_img/<?= $fetch_lokasi['image']; ?>" alt="">
-                                </div>
-                                <div class="content">
-                                    <h3><?= $fetch_lokasi['judul']; ?></h3>
-                                    <p><?= $fetch_lokasi['deskripsi']; ?></p>
-                                    <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
-                                    <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
-                                </div>
-                            </a>
-                    <?php
-                                }
-                            }
+            <div class="bmens container">
+                <?php
+                    if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
+                        $search_box = $_POST['search_box'];
+                        $select_menu = $conn->prepare("SELECT * FROM `products` WHERE name LIKE '%{$search_box}%'");
+                        $select_menu->execute();
+                        if($select_menu->rowCount() > 0){
+                            while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <form action="" method="post" class="bmen">
+                    <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
+                    <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
+                    <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
+                    <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
+                    <img src="./img/<?= $fetch_products['image']; ?>" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name"><?= $fetch_products['name']; ?></h3>
+                    <a href="category.php?category=<?= $fetch_products['category']; ?>" class="menu_description"><?= $fetch_products['category']; ?></a>
+
+                    <span class="menu_price"><?= "Rp " . number_format($fetch_products['price'], 0, ',', '.'); ?></span>
+
+                    <button class="menu_button" type="submit" name="tambah_cart">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </form>
+                <?php
                         }
+                    }
+                }
+                ?>
+                <?php
+                    if(!isset($_POST['search_box']) OR !isset($_POST['search_btn'])){
+                        $select_menu = $conn->prepare("SELECT * FROM `products`");
+                        $select_menu->execute();
+                        if($select_menu->rowCount() > 0){
+                            while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
                     ?>
-                    <?php
-                        if(!isset($_POST['search_box']) OR !isset($_POST['search_btn'])){
-                            $select_lokasi = $conn->prepare("SELECT * FROM `lokasi`");
-                            $select_lokasi->execute();
-                            if($select_lokasi->rowCount() > 0){
-                                while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
-                                    $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
-                                    $select_nama->execute([$fetch_lokasi['user_id']]);
-                                    $fetch_name = $select_nama->fetch();
-                    ?>
-                            <a href="<?= $fetch_lokasi['link']; ?>" class="blok1" target="_blank">
-                                <div class="image">
-                                    <img src="update_img/<?= $fetch_lokasi['image']; ?>" alt="">
-                                </div>
-                                <div class="content">
-                                    <h3><?= $fetch_lokasi['judul']; ?></h3>
-                                    <p><?= $fetch_lokasi['deskripsi']; ?></p>
-                                    <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
-                                    <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
-                                </div>
-                            </a>
-                    <?php
-                                }
-                            }
+                    <form action="" method="post" class="bmen">
+                        <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
+                        <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
+                        <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
+                        <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
+                        <img src="./img/<?= $fetch_products['image']; ?>" alt="Menu Image" class="menu_img">
+    
+                        <h3 class="menu_name"><?= $fetch_products['name']; ?></h3>
+                        <a href="category.php?category=<?= $fetch_products['category']; ?>" class="menu_description"><?= $fetch_products['category']; ?></a>
+    
+                        <span class="menu_price"><?= "Rp " . number_format($fetch_products['price'], 0, ',', '.'); ?></span>
+    
+                        <button class="menu_button" type="submit" name="tambah_cart">
+                            <i class="ri-shopping-bag-line"></i>
+                        </button>
+    
+                    </form>
+                <?php
                         }
-                    ?>
-                </div>
+                    }
+                }
+                ?>
 
 
+
+        </section>
 
         <?php include './components/user_footer.php'; ?>
-
         <!--========== SCROLL UP ==========-->
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-        <!--=============== Header JS ===============-->
-        <script src="./js/header.js"></script>
+
         <!--=============== SCROLLREVEAL ===============-->
         <script src="./js/scrollreveal.min.js"></script>
+
+        <!--=============== Header JS ===============-->
+        <script src="./js/header.js"></script>
+
         <!--=============== SEARCH JS ===============-->      
         <script src="./js/search.js"></script>
-        
-    </body>
+
+
+
+
+

@@ -18,6 +18,37 @@ if(isset($_SESSION['user_id'])){
    header('location:../index.php');
 }
 
+
+if(isset($_GET['delete'])){
+
+    $delete_id = $_GET['delete'];
+    $delete_image= $conn->prepare("SELECT * FROM `products` WHERE id = ?");
+    $delete_image->execute([$delete_id]);
+    $fetch_delete_image = $delete_image->fetch(PDO::FETCH_ASSOC);
+    unlink('../update_img/'.$fetch_delete_image['image']);
+    $delete_product = $conn->prepare("DELETE FROM `products` WHERE id = ?");
+    $delete_product->execute([$delete_id]);
+    $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE pid = ?");
+    $delete_cart->execute([$delete_id]);
+
+
+    $judul = $fetch_delete_image['name'];
+
+    $select_uid = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+    $select_uid->execute([$user_id]);
+    $data1 = $select_uid->fetch(PDO::FETCH_ASSOC);
+
+    $uid = $data1['id'];
+    $uname = $data1['name'];
+    $uemail = $data1['email'];
+    $status = "Menghapus";
+    $waktu1 = date('Y-m-d H:i:s');
+
+    $insert_update = $conn->prepare("INSERT INTO `tabel_products`(user_id, name, email, judul, status, waktu) VALUES(?,?,?,?,?,?)");
+    $insert_update->execute([$uid, $uname, $uemail, $judul, $status, $waktu1]);
+    header('location:../admin/menu.php');
+ 
+ }
 ?>
 
 <!DOCTYPE html>
@@ -69,16 +100,16 @@ if(isset($_SESSION['user_id'])){
                             <a href="../admin/index.php" class="nav__link">Beranda</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/lokasi.php"about class="nav__link active-link">Lokasi</a>
+                            <a href="../admin/lokasi.php"about class="nav__link ">Lokasi</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/menu.php" class="nav__link">Menu</a>
+                            <a href="../admin/menu.php" class="nav__link active-link">Menu</a>
                         </li>
                         <li class="nav__item">
                             <a href="../admin/pesanan.php" class="nav__link">Pesanan</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/bantuan.php" class="nav__link">Bantuan</a>
+                            <a href="../admin/bantuan.php" class="nav__link ">Bantuan</a>
                         </li>
                         <li class="nav__item">
                             <a href="../admin/acc.php" class="nav__link">Akun</a>
@@ -129,95 +160,63 @@ if(isset($_SESSION['user_id'])){
             
         </header>
 
-        <section class="pbox container grid">
-            <div class="profile_container">
-                <div class="profile-box">
-                    <a href="../admin/lokasi.php"><i class="ri-arrow-left-line icon_panah"></i></a>
-                    <span class="section_title profile_title1">Riwayat Lokasi</span> 
-                </div>
-
-                <div class="profile-box">
-                    <h3 class="profile_title3">Riwayat Penambahan Lokasi Warung Atau Outlet Yang Telah Diinput Oleh Seller Maupun Admin!</h3> 
-                </div>
-
-
-                <div class="records table-responsive">
-                    <div>
-                        <table width="100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>USERNAME</th>
-                                    <th>ROLE</th>
-                                    <th>JUDUL</th>
-                                    <th>STATUS</th>
-                                    <th>WAKTU</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                                $select_update = $conn->prepare("SELECT * FROM `tabel_lokasi` ORDER BY `id` DESC");
-                                $select_update->execute();
-                                if(($select_update->rowCount() > 0)){
-                                    while($fetch_update = $select_update->fetch(PDO::FETCH_ASSOC)){
-                            ?>
-                                <tr>
-                                    <td><?= $fetch_update['user_id']; ?></td>
-                                    <td>
-                                        <div class="client">
-                                            <div class="client-info">
-                                                <h4><?= $fetch_update['name']; ?></h4>
-                                                <small><?= $fetch_update['email']; ?></small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <?= $fetch_update['role']; ?>
-                                    </td>
-                                    <td>
-                                        <?= $fetch_update['judul']; ?>
-                                    </td>
-                                <?php
-                                    if($fetch_update['status'] == "Menambahkan"){
-                                ?>
-                                    <td class="tambah">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }else if($fetch_update['status'] == "Mengedit"){
-                                ?>
-                                    <td class="edit">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }else if($fetch_update['status'] == "Menghapus"){
-                                ?>
-                                    <td class="hapus">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }
-                                ?>
-                                    <td>
-                                        <?= $fetch_update['waktu']; ?>
-                                    </td>
-                                </tr>
-                            <?php
-                                    }
-                                }
-                            ?>
-                        </table>
+        <section class="lokasi section" id="lokasi1">
+            <div class="bloks1 container">
+                    <div class="blok1">
+                        <div class="icon_lokasi">
+                             <i class="ri-upload-cloud-2-fill"></i>
+                        </div>
+                        <div class="content">
+                            <h3>penambahan menu!</h3>
+                            <p>Tambahkan menu warungmu untuk memudahkan pelanggan untuk mencoba produkmu!</p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                            <div class="tombol container" >
+                                <a href="../admin/add_menu.php" class="btn" id="lokabtn"> Tambahkan </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="blok1">
+                        <div class="icon_lokasi">
+                            <i class="ri-cloud-windy-line"></i>
+                        </div>
+                        <div class="content">
+                            <h3>riwayat penambahan!</h3>
+                            <p>Riwayat penambahan menu warung atau outlet yang telah diinput oleh admin!</p>
+                            <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
+                            <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
+                            <div class="tombol container" >
+                                <a href="../admin/his_menu.php" class="btn" id="lokabtn"> Riwayat </a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                    $select_menu = $conn->prepare("SELECT * FROM `products`");
+                    $select_menu->execute();
+                    if($select_menu->rowCount() > 0){
+                        while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                        <div class="blok1">
+                            <div class="image">
+                                <img src="../update_img/<?= $fetch_menu['image']; ?>" alt="">
+                            </div>
+                            <div class="content">
+                                <h3><?= $fetch_menu['name']; ?></h3>
+                                <p><?= $fetch_menu['category']; ?></p>
+                                <h4 class="menu1"> <i class="ri-money-dollar-circle-line"></i> <?= "Rp " . number_format($fetch_menu['price'], 0, ',', '.'); ?> </h4>
+                                <div class="tombol-container">
+                                    <a href="../admin/update_menu.php?update=<?= $fetch_menu['id']; ?>" class="btn" id="lokabtn">update</a>
+                                    <a href="../admin/menu.php?delete=<?= $fetch_menu['id']; ?>" class="delete-btn" id="lokabtn" onclick="return confirm('Hapus menu ini??');">delete</a>
+                                </div>
+                            </div>
+                        </div>
+                <?php
+                            }
+                        }
+                ?>
             </div>
-
         </section>
-
-
- 
-
-
-
 
 
 

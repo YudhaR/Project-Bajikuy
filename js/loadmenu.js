@@ -1,4 +1,5 @@
 let loadMore = document.querySelector('#loadmenu');
+let loadMore1 = document.querySelector('#loadmenu1');
 let current = 3;
 
 loadMore.onclick = () =>{
@@ -39,7 +40,19 @@ loadMore.onclick = () =>{
         current+=3;
     }
 
-   if(current >= boxe.length) {
-      loadMore.style.display = 'none';
-   }
+    if(current >= panjang){
+        loadMore.style.display = 'none';
+    }
+  
+    if(current >= 9){
+        loadMore.style.display = 'none';
+    }
+  
+    if(current < 9){
+        loadMore1.style.display = 'none';
+    }
+  
+    if(current >= 9){
+        loadMore1.style.display = 'inline-block';
+    }
 }

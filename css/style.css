@@ -1369,6 +1369,7 @@ table tbody tr {
   color: #f39644;
   margin-bottom: 0.5rem;
   text-align: center;
+  text-transform: capitalize;
 }
 
 .menu_title{
@@ -1406,6 +1407,10 @@ table tbody tr {
   top: -2.5rem;
   margin-top: -3rem;
   transition: transform .4s;
+}
+
+.menu_cloud{
+  font-size: 115px;
 }
 
 .menu_name {
@@ -1457,6 +1462,35 @@ table tbody tr {
 #loadmenu{
   margin-top: 2rem;
   cursor: pointer;
+}
+
+#loadmenu1{
+  margin-top: 2rem;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+
+.category_select{
+  border: 1px solid #1a1a1a82;
+  outline: none;
+  font-size: 14px;
+  padding: 5px 5px 5px 5px;
+  background-color: #eee;
+  color: #6d6a75;
+  margin-top: 2rem;
+  border-radius: 10px;
+}
+
+.menu1{
+  font-size: 14px;
+  font-weight: 400;
+  color:#777;
+}
+
+.menu1 i{
+  color: crimson;
+  font-size: 17px;
 }
 
 /*=============== BANTUAN ===============*/
@@ -1923,6 +1957,7 @@ table tbody tr {
     }
 
     .bmens{
+      text-transform: capitalize;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(15rem, 0.25fr));
       gap: 50px;

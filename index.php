@@ -10,7 +10,7 @@ if(isset($_SESSION['user_id'])){
    $user_id = '';
 };
 
-// include 'components/add_cart.php';
+include 'components/add_cart.php';
 
 if(isset($_POST['submit'])){
     $email = $_POST['email'];
@@ -298,10 +298,10 @@ if(isset($_POST['submit'])){
                 ?>
             </div>
             <div class="tombol container">
-                <div id="load" class="button"> Lebih Banyak </div>
+                <div id="load" class="btn"> Lebih Banyak </div>
             </div>
             <div class="tombol container">
-                <a href="./lokasi.php" id="load1" class="button"> Lebih Banyak </a>
+                <a href="./lokasi.php" id="load1" class="btn"> Lebih Banyak </a>
             </div>
             <div class="bloks container">
                 <?php
@@ -432,124 +432,198 @@ if(isset($_POST['submit'])){
             <h4 class="menu_title">Menu</h4>
 
             <div class="bmens container">
-                <div class="bmen">
-                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
+                <?php
+                    $select_menu = $conn->prepare("SELECT * FROM `products`");
+                    $select_menu->execute();
+                    if($select_menu->rowCount() > 3){
+                        while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <form action="" method="post" class="bmen">
+                    <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
+                    <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
+                    <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
+                    <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
+                    <img src="./img/<?= $fetch_products['image']; ?>" alt="Menu Image" class="menu_img">
 
-                    <h3 class="menu_name">Onigiri</h3>
-                    <a href="" class="menu_description">Japanese Dish</a>
+                    <h3 class="menu_name"><?= $fetch_products['name']; ?></h3>
+                    <a href="category.php?category=<?= $fetch_products['category']; ?>" class="menu_description"><?= $fetch_products['category']; ?></a>
 
-                    <span class="menu_price">$10.99</span>
+                    <span class="menu_price"><?= "Rp " . number_format($fetch_products['price'], 0, ',', '.'); ?></span>
 
-                    <button class="menu_button">
+                    <button class="menu_button" type="submit" name="tambah_cart">
                         <i class="ri-shopping-bag-line"></i>
                     </button>
 
-                </div>
-
-                <div class="bmen">
-                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
-
-                    <h3 class="menu_name">Onigiri</h3>
-                    <a href="" class="menu_description">Japanese Dish</a>
-
-                    <span class="menu_price">$10.99</span>
-
-                    <button class="menu_button">
-                        <i class="ri-shopping-bag-line"></i>
-                    </button>
-
-                </div>
-
-                <div class="bmen">
-                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
-
-                    <h3 class="menu_name">Onigiri</h3>
-                    <a href="" class="menu_description">Japanese Dish</a>
-
-                    <span class="menu_price">$10.99</span>
-
-                    <button class="menu_button">
-                        <i class="ri-shopping-bag-line"></i>
-                    </button>
-
-                </div>
-
-                <div class="bmen">
-                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
-
-                    <h3 class="menu_name">Onigiri</h3>
-                    <a href="" class="menu_description">Japanese Dish</a>
-
-                    <span class="menu_price">$10.99</span>
-
-                    <button class="menu_button">
-                        <i class="ri-shopping-bag-line"></i>
-                    </button>
-
-                </div>
-
-                <div class="bmen">
-                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
-
-                    <h3 class="menu_name">Onigiri</h3>
-                    <a href="" class="menu_description">Japanese Dish</a>
-
-                    <span class="menu_price">$10.99</span>
-
-                    <button class="menu_button">
-                        <i class="ri-shopping-bag-line"></i>
-                    </button>
-
-                </div>
-
-                <div class="bmen">
-                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
-
-                    <h3 class="menu_name">Onigiri</h3>
-                    <a href="" class="menu_description">Japanese Dish</a>
-
-                    <span class="menu_price">$10.99</span>
-
-                    <button class="menu_button">
-                        <i class="ri-shopping-bag-line"></i>
-                    </button>
-
-                </div>
-
-                <div class="bmen">
-                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
-
-                    <h3 class="menu_name">Onigiri</h3>
-                    <a href="" class="menu_description">Japanese Dish</a>
-
-                    <span class="menu_price">$10.99</span>
-
-                    <button class="menu_button">
-                        <i class="ri-shopping-bag-line"></i>
-                    </button>
-
-                </div>
-
-                <div class="bmen">
-                    <img src="./img/bajigur.png" alt="Menu Image" class="menu_img">
-
-                    <h3 class="menu_name">Onigiri</h3>
-                    <a href="" class="menu_description">Japanese Dish</a>
-
-                    <span class="menu_price">$10.99</span>
-
-                    <button class="menu_button">
-                        <i class="ri-shopping-bag-line"></i>
-                    </button>
-
-                </div>
-
-
+                </form>
+                <?php
+                        }
+                ?>
             </div>
-
             <div class="tombol container">
-                <div id="loadmenu" class="button"> Lebih Banyak </div>
+                <div id="loadmenu" class="btn"> Lebih Banyak </div>
             </div>
+            <div class="tombol container">
+                <a href="./menu.php" id="loadmenu1" class="btn"> Lebih Banyak </a>
+            </div>
+            <div class="bmens container">
+                <?php
+                    }else if(($select_menu->rowCount() > 2)&&($select_menu->rowCount() < 4)){
+                        while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <form action="" method="post" class="bmen">
+                    <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
+                    <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
+                    <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
+                    <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
+                    <img src="./img/<?= $fetch_products['image']; ?>" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name"><?= $fetch_products['name']; ?></h3>
+                    <a href="category.php?category=<?= $fetch_products['category']; ?>" class="menu_description"><?= $fetch_products['category']; ?></a>
+
+                    <span class="menu_price"><?= "Rp " . number_format($fetch_products['price'], 0, ',', '.'); ?></span>
+
+                    <button class="menu_button" type="submit" name="tambah_cart">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </form>
+                <?php
+                    }
+                }else if(($select_menu->rowCount() > 1)&&($select_menu->rowCount() < 3)){
+                    while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <form action="" method="post" class="bmen">
+                    <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
+                    <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
+                    <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
+                    <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
+                    <img src="./img/<?= $fetch_products['image']; ?>" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name"><?= $fetch_products['name']; ?></h3>
+                    <a href="category.php?category=<?= $fetch_products['category']; ?>" class="menu_description"><?= $fetch_products['category']; ?></a>
+
+                    <span class="menu_price"><?= "Rp " . number_format($fetch_products['price'], 0, ',', '.'); ?></span>
+
+                    <button class="menu_button" type="submit" name="tambah_cart">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </form>
+                <?php
+                    }
+                ?>
+                <div class="bmen">
+                    <i class="ri-cloud-off-fill menu_cloud"></i> 
+
+                    <h3 class="menu_name">Segera Tersedia!</h3>
+                    <a href="#menu" class="menu_description">-</a>
+
+                    <span class="menu_price">Rp. -</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+                <?php
+                }else if(($select_menu->rowCount() > 0)&&($select_menu->rowCount() < 2)){
+                    while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <form action="" method="post" class="bmen">
+                    <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
+                    <input type="hidden" name="name" value="<?= $fetch_products['name']; ?>">
+                    <input type="hidden" name="price" value="<?= $fetch_products['price']; ?>">
+                    <input type="hidden" name="image" value="<?= $fetch_products['image']; ?>">
+                    <img src="./img/<?= $fetch_products['image']; ?>" alt="Menu Image" class="menu_img">
+
+                    <h3 class="menu_name"><?= $fetch_products['name']; ?></h3>
+                    <a href="category.php?category=<?= $fetch_products['category']; ?>" class="menu_description"><?= $fetch_products['category']; ?></a>
+
+                    <span class="menu_price"><?= "Rp " . number_format($fetch_products['price'], 0, ',', '.'); ?></span>
+
+                    <button class="menu_button" type="submit" name="tambah_cart">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </form>
+                <?php
+                    }
+                ?>
+                <div class="bmen">
+                    <i class="ri-cloud-off-fill menu_cloud"></i> 
+
+                    <h3 class="menu_name">Segera Tersedia!</h3>
+                    <a href="#menu" class="menu_description">-</a>
+
+                    <span class="menu_price">Rp. -</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div>
+
+                <div class="bmen">
+                    <i class="ri-cloud-off-fill menu_cloud"></i> 
+
+                    <h3 class="menu_name">Segera Tersedia!</h3>
+                    <a href="#menu" class="menu_description">-</a>
+
+                    <span class="menu_price">Rp. -</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div> 
+                <?php
+                }else{
+                ?>                             
+                <div class="bmen">
+                    <i class="ri-cloud-off-fill menu_cloud"></i> 
+
+                    <h3 class="menu_name">Segera Tersedia!</h3>
+                    <a href="#menu" class="menu_description">-</a>
+
+                    <span class="menu_price">Rp. -</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div> 
+                <div class="bmen">
+                    <i class="ri-cloud-off-fill menu_cloud"></i> 
+
+                    <h3 class="menu_name">Segera Tersedia!</h3>
+                    <a href="#menu" class="menu_description">-</a>
+
+                    <span class="menu_price">Rp. -</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div> 
+                <div class="bmen">
+                    <i class="ri-cloud-off-fill menu_cloud"></i> 
+
+                    <h3 class="menu_name">Segera Tersedia!</h3>
+                    <a href="#menu" class="menu_description">-</a>
+
+                    <span class="menu_price">Rp. -</span>
+
+                    <button class="menu_button">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
+
+                </div> 
+                <?php
+                }
+                ?>               
+            </div>
+
+
 
 
 

@@ -40,7 +40,7 @@ loadMoreBtn.onclick = () =>{
         currentItem+=3;
     }
 
-   if(currentItem >= boxes.length){
+   if(currentItem >= panjang){
       loadMoreBtn.style.display = 'none';
    }
 

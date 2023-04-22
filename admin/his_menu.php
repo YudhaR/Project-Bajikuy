@@ -18,6 +18,7 @@ if(isset($_SESSION['user_id'])){
    header('location:../index.php');
 }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -69,16 +70,16 @@ if(isset($_SESSION['user_id'])){
                             <a href="../admin/index.php" class="nav__link">Beranda</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/lokasi.php"about class="nav__link active-link">Lokasi</a>
+                            <a href="../admin/lokasi.php"about class="nav__link ">Lokasi</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/menu.php" class="nav__link">Menu</a>
+                            <a href="../admin/menu.php" class="nav__link active-link">Menu</a>
                         </li>
                         <li class="nav__item">
                             <a href="../admin/pesanan.php" class="nav__link">Pesanan</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/bantuan.php" class="nav__link">Bantuan</a>
+                            <a href="../admin/bantuan.php" class="nav__link ">Bantuan</a>
                         </li>
                         <li class="nav__item">
                             <a href="../admin/acc.php" class="nav__link">Akun</a>
@@ -132,12 +133,12 @@ if(isset($_SESSION['user_id'])){
         <section class="pbox container grid">
             <div class="profile_container">
                 <div class="profile-box">
-                    <a href="../admin/lokasi.php"><i class="ri-arrow-left-line icon_panah"></i></a>
-                    <span class="section_title profile_title1">Riwayat Lokasi</span> 
+                    <a href="../admin/menu.php"><i class="ri-arrow-left-line icon_panah"></i></a>
+                    <span class="section_title profile_title1">Riwayat Menu</span> 
                 </div>
 
                 <div class="profile-box">
-                    <h3 class="profile_title3">Riwayat Penambahan Lokasi Warung Atau Outlet Yang Telah Diinput Oleh Seller Maupun Admin!</h3> 
+                    <h3 class="profile_title3">Riwayat Penambahan Menu Warung Atau Outlet Yang Telah Diinput Oleh Admin!</h3> 
                 </div>
 
 
@@ -148,7 +149,6 @@ if(isset($_SESSION['user_id'])){
                                 <tr>
                                     <th>#</th>
                                     <th>USERNAME</th>
-                                    <th>ROLE</th>
                                     <th>JUDUL</th>
                                     <th>STATUS</th>
                                     <th>WAKTU</th>
@@ -156,7 +156,7 @@ if(isset($_SESSION['user_id'])){
                             </thead>
                             <tbody>
                             <?php
-                                $select_update = $conn->prepare("SELECT * FROM `tabel_lokasi` ORDER BY `id` DESC");
+                                $select_update = $conn->prepare("SELECT * FROM `tabel_products` ORDER BY `id` DESC");
                                 $select_update->execute();
                                 if(($select_update->rowCount() > 0)){
                                     while($fetch_update = $select_update->fetch(PDO::FETCH_ASSOC)){
@@ -170,9 +170,6 @@ if(isset($_SESSION['user_id'])){
                                                 <small><?= $fetch_update['email']; ?></small>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <?= $fetch_update['role']; ?>
                                     </td>
                                     <td>
                                         <?= $fetch_update['judul']; ?>

@@ -21,24 +21,18 @@ if(isset($_SESSION['user_id'])){
 if(isset($_POST['submit'])){
 
     $lokid = $_POST['lokid'];
-    $lokid = filter_var($lokid, FILTER_SANITIZE_STRING);
     $judul = $_POST['judul'];
-    $judul = filter_var($judul, FILTER_SANITIZE_STRING);
-    $link = $_POST['link'];
-    $link = filter_var($link, FILTER_SANITIZE_STRING);
-    $deskripsi = $_POST['deskripsi'];
-    $deskripsi = filter_var($deskripsi, FILTER_SANITIZE_STRING);
-    $waktu = date('Y-m-d');
+    $price = $_POST['price'];
+    $category = $_POST['category'];
     $waktu1 = date('Y-m-d H:i:s');
 
     $uid = $_POST['uid'];
     $uname = $_POST['uname'];
     $uemail = $_POST['uemail'];
-    $urole = $_POST['urole'];
     $status = "Mengedit";
 
-    $update_lokasi = $conn->prepare("UPDATE `lokasi` SET user_id = ?, link = ?, judul = ?, deskripsi = ?, waktu = ? WHERE id = ?");
-    $update_lokasi->execute([$user_id, $link, $judul, $deskripsi, $waktu, $lokid]);    
+    $update_menu = $conn->prepare("UPDATE `products` SET name = ?, category = ?, price = ? WHERE id = ?");
+    $update_menu->execute([$judul, $category, $price, $lokid]);    
 
     $old_image = $_POST['old_image'];
     $image = $_FILES['image']['name'];
@@ -51,12 +45,12 @@ if(isset($_POST['submit'])){
         if($image_size > 2000000){
            $message[] = 'Ukuran Gambar Terlalu Besar!';
         }else{
-           $update_image = $conn->prepare("UPDATE `lokasi` SET image = ? WHERE id = ?");
+           $update_image = $conn->prepare("UPDATE `products` SET image = ? WHERE id = ?");
            $update_image->execute([$image, $lokid]);
 
-           $insert_update = $conn->prepare("INSERT INTO `tabel_lokasi`(user_id, name, email, judul, role, status, waktu) VALUES(?,?,?,?,?,?,?)");
-           $insert_update->execute([$uid, $uname, $uemail, $judul, $urole, $status, $waktu1]);
-
+           $insert_update = $conn->prepare("INSERT INTO `tabel_products`(user_id, name, email, judul, status, waktu) VALUES(?,?,?,?,?,?)");
+           $insert_update->execute([$uid, $uname, $uemail, $judul, $status, $waktu1]);
+           
            unlink('../update_img/'.$old_image);
            move_uploaded_file($image_tmp_name, $image_folder);
 
@@ -65,8 +59,8 @@ if(isset($_POST['submit'])){
      }
  
  }
-?>
 
+?>
 
 <!DOCTYPE html>
     <html lang="en">
@@ -117,16 +111,16 @@ if(isset($_POST['submit'])){
                             <a href="../admin/index.php" class="nav__link">Beranda</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/lokasi.php"about class="nav__link active-link">Lokasi</a>
+                            <a href="../admin/lokasi.php"about class="nav__link ">Lokasi</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/menu.php" class="nav__link">Menu</a>
+                            <a href="../admin/menu.php" class="nav__link active-link">Menu</a>
                         </li>
                         <li class="nav__item">
                             <a href="../admin/pesanan.php" class="nav__link">Pesanan</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/bantuan.php" class="nav__link">Bantuan</a>
+                            <a href="../admin/bantuan.php" class="nav__link ">Bantuan</a>
                         </li>
                         <li class="nav__item">
                             <a href="../admin/acc.php" class="nav__link">Akun</a>
@@ -180,39 +174,40 @@ if(isset($_POST['submit'])){
         <section class="pbox container grid">
             <div class="profile_container">
                 <div class="profile-box">
-                    <a href="../admin/lokasi.php"><i class="ri-arrow-left-line icon_panah"></i></a>
-                    <span class="section_title profile_title1">Update Lokasi</span> 
+                    <a href="../admin/menu.php"><i class="ri-arrow-left-line icon_panah"></i></a>
+                    <span class="section_title profile_title1">Update Menu</span> 
                 </div>
 
                 <div class="profile-box">
-                    <h3 class="profile_title3">Update lokasi warungmu untuk memudahkan pelanggan untuk menemukan dan mencoba produkmu!</h3> 
+                    <h3 class="profile_title3">Update menu warungmu untuk memudahkan pelanggan untuk mencoba produkmu!</h3> 
                 </div>
 
                 <div class="updt_alm">
                     <?php
                         $update_lokid = $_GET['update'];
-                        $show_lokasi = $conn->prepare("SELECT * FROM `lokasi` WHERE id = ?");
-                        $show_lokasi->execute([$update_lokid]);
-                        if($show_lokasi->rowCount() > 0){
-                            while($fetch_lokasi = $show_lokasi->fetch(PDO::FETCH_ASSOC)){  
+                        $show_menu = $conn->prepare("SELECT * FROM `products` WHERE id = ?");
+                        $show_menu->execute([$update_lokid]);
+                        if($show_menu->rowCount() > 0){
+                            while($fetch_menu = $show_menu->fetch(PDO::FETCH_ASSOC)){  
                     ?>
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="almeb">
-                            <input type="hidden" name="lokid" value="<?= $fetch_lokasi['id']; ?>">
-                            <input type="hidden" name="old_image" value="<?= $fetch_lokasi['image']; ?>">
+                            <input type="hidden" name="lokid" value="<?= $fetch_menu['id']; ?>">
+                            <input type="hidden" name="old_image" value="<?= $fetch_menu['image']; ?>">
                             <div class="alm_content">
-                                <input type="text" required placeholder=" " class="alm_input" name="link">
-                                <label for="" class="alm_label">Link Google Maps</label>  
+                                <input type="text" required placeholder=" " class="alm_input" name="judul" value="<?= $fetch_menu['name']; ?>">
+                                <label for="" class="alm_label">Nama Product</label>  
                             </div>
 
-                            <div class="alm_content">
-                                <input type="text" required placeholder=" " class="alm_input" name="judul">
-                                <label for="" class="alm_label">Judul</label>  
-                            </div>
+                            <select class="category_select" name="category">
+                                <option value="minuman Tradisional" <?= ($fetch_menu['category'] == "minuman Tradisional") ? "selected" : "" ?>>Minuman Tradisional</option>
+                                <option value="makanan Tradisional" <?= ($fetch_menu['category'] == "makanan Tradisional") ? "selected" : "" ?>>Makanan Tradisional</option>
+                                <option value="jajanan Tradisional" <?= ($fetch_menu['category'] == "jajanan Tradisional") ? "selected" : "" ?>>Jajanan Tradisional</option>
+                            </select>
 
                             <div class="alm_content">
-                                <textarea type="text" required placeholder=" " class="alm_input" name="deskripsi"></textarea>
-                                <label for="" class="alm_label">Deskripsi</label>  
+                                <input type="number" required placeholder=" " class="alm_input" name="price" value="<?= $fetch_menu['price']; ?>">
+                                <label for="" class="alm_label">Price</label>  
                             </div>
 
                             <div class="alm_content">
@@ -228,13 +223,12 @@ if(isset($_POST['submit'])){
                                 <input type="hidden" name="uid" value="<?= $fetch_update['id']; ?>">
                                 <input type="hidden" name="uname" value="<?= $fetch_update['name']; ?>">
                                 <input type="hidden" name="uemail" value="<?= $fetch_update['email']; ?>">
-                                <input type="hidden" name="urole" value="<?= $fetch_update['role']; ?>">
                             <?php
                                     }
                                 }
                             ?>
                         </div>
-                        <input type="submit" value="Tambah" class="button" id="lokabtn" name="submit">
+                        <input type="submit" value="Tambah" class="btn" id="lokabtn" name="submit">
                     </form>
                     <?php
                             }
