@@ -191,6 +191,7 @@ if(isset($_POST['submit'])){
                             </div>
 
                             <select class="category_select" name="category" >
+                                <option value="" disabled selected>Pilih Kategori --</option>
                                 <option value="minuman Tradisional">Minuman Tradisional</option>
                                 <option value="makanan Tradisional">Makanan Tradisional</option>
                                 <option value="jajanan Tradisional">Jajanan Tradisional</option>

@@ -1670,6 +1670,40 @@ table tbody tr {
   color: #6d6a75;
 }
 
+.cart_info2{
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+
+.cart_info2 i{
+  font-size: 30px;
+  position: absolute;
+  margin-top: .5rem;
+  
+}
+
+.cart_info2 h4{
+  margin-left: 2.5rem;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6d6a75;
+}
+
+.cart_info3{
+  padding-right: 2.5rem;
+  margin-top: .5rem;
+}
+
+.cart_info3 h4{
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid #6d6a75;
+  margin-left: 2.5rem;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6d6a75;
+}
+
 .cart_menu{
   padding-top: .5rem;
 }
@@ -1776,6 +1810,337 @@ table tbody tr {
 .cart-empty i{
   font-size: 100px;
 }
+
+.cart_menu-info h6{
+  font-size: 12px;
+  font-weight: 400;
+  color: #6d6a75;
+}
+
+.cart-payment{
+  margin-top: .3rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid #1a1a1a82;
+}
+
+select {
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 0 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  z-index: 1;
+  outline: none;
+}
+
+/*=============== PESANAN ===============*/
+.pesanan_boxs{
+  border: 1px solid #1a1a1a82;
+  border-radius: 10px;
+  padding: .5rem .5rem .5rem .5rem;
+}
+
+.pesanan_box1 i{
+  font-size: 20px;
+  font-weight: 400;
+  color: #6d6a75;
+}
+
+.pesanan-icon{
+  position: absolute;
+  margin-top: -2.4rem;
+  margin-left: .5rem;
+}
+
+.pesanan_box1 span{
+  font-weight: 400;
+  color: #6d6a75;
+  font-size: 14px;
+}
+
+.pesanan-text1{
+  display: flex;
+  justify-content: space-between;
+  padding: .5rem .5rem .5rem 2.5rem;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  border: 1px solid #1a1a1a82;
+  border-radius: 10px;
+}
+
+.tambah1{
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  color: #22BAA0;
+  background: #e5f8ed;
+  padding: .2rem .2rem;
+  border-radius: 10px;
+  font-size: .8rem;
+  margin-left: .2rem;
+}
+
+.hapus1{
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  color: #e63946;
+  background: #ffc8dd;
+  padding: .2rem .2rem;
+  border-radius: 10px;
+  font-size: .8rem;
+  margin-left: .2rem;
+}
+
+.edit1{
+  display: inline-block;
+  text-align: center;
+  font-weight: 600;
+  color: #eb5e28;
+  background: #ffd166;
+  padding: .2rem .2rem;
+  border-radius: 10px;
+  font-size: .8rem;
+  margin-left: .2rem;
+}
+
+.pesanan_box2{
+  padding: .5rem .5rem .5rem .5rem;
+  margin-top: 1rem;
+  border: 1px solid #1a1a1a82;
+  border-radius: 10px;
+}
+
+.pesanan-icon1{
+  margin-top: .1rem;
+  position: absolute;
+  font-size: 20px;
+  font-weight: 400;
+  color: #6d6a75;
+}
+
+.pesanan-text{
+  padding-left: 2rem;
+  font-weight: 400;
+  color: #6d6a75;
+  font-size: 14px;
+}
+
+.pesanan-text3{
+  margin-left: .2rem;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.pesanan_box3{
+  display: flex;
+  justify-content: space-between;
+}
+
+.pesanan_box4{
+  display: flex;
+  justify-content: space-between;
+}
+
+.pesanan_box6{
+  justify-content: center;
+  width: 150px;
+}
+
+.pesanan_box7{
+  margin-top: 1rem;
+}
+
+.pesanan_box7 h4{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 13px;
+}
+
+.pesanan_box7 h5{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 15px;
+}
+
+.pesanan_box7 span{
+  font-weight: 400;
+  color: #6d6a75;
+  font-size: 13px;
+}
+
+.pesanan_box5{
+  margin-top: 1rem;
+}
+
+.pesanan_box5-text{
+  padding-top: .5rem;
+}
+
+.pesanan_box5-text1{
+  padding-bottom: .5rem;
+  margin-bottom: 2rem;
+}
+
+.pesanan_box5 h4{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 14px;
+  text-align: left;
+  border-left: 1px solid #1a1a1a82;
+  padding-left: 1rem;
+}
+
+.pesanan1-link{
+  font-weight: 500;
+  color: #22BAA0;
+  font-size: 14px;
+}
+
+.pesanan1-icon{
+  position: absolute;
+  font-size: 20px;
+  font-weight: 400;
+  color: #6d6a75;
+  margin-left: .2rem;
+  margin-top: .1rem;
+}
+
+.pesanan1_box2 span{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 16px;
+  padding-left: 2rem;
+}
+
+.pesanan1_box2{
+  border-bottom: 1px solid #1a1a1a82;
+  padding-bottom: .5rem;
+  margin-bottom: 1rem;
+}
+
+.pesanan_boxs1{
+  border: 1px solid #1a1a1a82;
+  border-radius: 10px;
+  padding: 1rem 1rem 1rem 1rem;
+}
+
+.pesanan1_box1{
+  margin-top: .5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pesanan2_box1 h4{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 14px;
+}
+
+.pesanan2_box2 h5{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 14px;
+}
+
+.pesanan1_box3{
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pesanan1_box4{
+  display: flex;
+  justify-content: space-between;
+}
+
+.pesanan1_box6{
+  justify-content: center;
+  width: 150px;
+}
+
+.pesanan1_box7{
+  margin-top: 1rem;
+}
+
+.pesanan1_box7 h4{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 13px;
+}
+
+.pesanan1_box7 h5{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 15px;
+}
+
+.pesanan1_box7 span{
+  font-weight: 400;
+  color: #6d6a75;
+  font-size: 13px;
+}
+
+.pesanan1_box5{
+  margin-top: 1rem;
+}
+
+.pesanan1_box5-text{
+  padding-top: .5rem;
+}
+
+.pesanan1_box5-text1{
+  padding-bottom: .5rem;
+  margin-bottom: 2rem;
+}
+
+.pesanan1_box5 h4{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 14px;
+  text-align: left;
+  border-left: 1px solid #1a1a1a82;
+  padding-left: 1rem;
+}
+
+.pesanan3_box1{
+  margin-top: .5rem;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #1a1a1a82;
+}
+
+.pesanan1_box8{
+  border-top: 1px solid #1a1a1a82;
+  padding-top: .5rem;
+}
+
+.pesanan1_box8 h4{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 15px;
+  margin-bottom: .5rem;
+}
+
+.pesanan1_box8 h5{
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 15px;
+}
+
+.pesanan1_box8 h6{
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #6d6a75;
+  font-size: 15px;
+}
+
 
 /*=============== FOOTER ===============*/
 .footer_title{
@@ -1938,6 +2303,11 @@ table tbody tr {
     font-size: 24px;
   }
 
+  .cart_info2 i{
+    margin-top: -.2rem;
+    margin-left: .3rem;
+    font-size: 24px;
+  }
 
 
   
@@ -1978,6 +2348,11 @@ table tbody tr {
       font-size: 24px;
     }
 
+    .cart_info2 i{
+      margin-top: -.2rem;
+      margin-left: .3rem;
+      font-size: 24px;
+    }
 
 
 
@@ -2323,6 +2698,13 @@ table tbody tr {
       margin-left: .3rem;
       font-size: 24px;
     }
+
+    .cart_info2 i{
+      margin-top: -.2rem;
+      margin-left: .3rem;
+      font-size: 24px;
+    }
+
 
     .cartboxs{
       grid-template-columns: 700px 324px;

@@ -123,6 +123,7 @@ if(isset($_POST['submit'])){
             </div>
 
             <select class="regis_role" name="role">
+                <option value="" disabled selected>Pilih Role Akun --</option>
                 <option value="user">User</option>
                 <option value="seller">Seller</option>
             </select>

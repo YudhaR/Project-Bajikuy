@@ -11,27 +11,66 @@ if(isset($_SESSION['user_id'])){
    header('location:./login.php');
 };
 
-if(isset($_POST['hapus_cart'])){
-    $cart_id = $_POST['cart_id'];
-    $delete_cart_item = $conn->prepare("DELETE FROM `cart` WHERE id = ?");
-    $delete_cart_item->execute([$cart_id]);
-    $message[] = 'Menu Telah Dihapus!';
+$check_cart = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+$check_cart->execute([$user_id]);
+
+if($check_cart->rowCount() == 0){
+    header('location:./cart.php');
 }
+
+if(isset($_SESSION['total'])){
+    $grand_total = $_SESSION['total'];
+}else{
+    header('location:./cart.php');
+}
+
+if(isset($_POST['submit'])){
+
+    $name = $_POST['name'];
+    $number = $_POST['number'];
+    $email = $_POST['email'];
+    $method = $_POST['method'];
+    $address = $_POST['address'];
+    $total_products = $_POST['total_products'];
+    $total_price = $_POST['total_price'];
+    $placed_on = date('Y-m-d');
+    $payment_status = "Menunggu Pembayaran";
+    $waktu = date('H:i:s');
  
-if(isset($_POST['hapusall_cart'])){
-    $delete_cart_item = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
-    $delete_cart_item->execute([$user_id]);
-    $message[] = 'Semua Menu Telah Dihapus!';
-}
+    $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, payment_status, waktu) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+    $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price, $placed_on, $payment_status, $waktu]);
+ 
+    $order_id = $conn->lastInsertId();
 
-if(isset($_POST['edit_cart'])){
-    $cart_id = $_POST['cart_id'];
-    $qty = $_POST['qty'];
-    $update_qty = $conn->prepare("UPDATE `cart` SET quantity = ? WHERE id = ?");
-    $update_qty->execute([$qty, $cart_id]);
-}
+    $select_cart1 = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+    $select_cart1->execute([$user_id]);
+    if($select_cart1->rowCount() > 0){
+        while($data1 = $select_cart1->fetch(PDO::FETCH_ASSOC)){
+            $name = $data1['name'];
+            $price = $data1['price'];
+            $qty = $data1['quantity'];
+            $image = $data1['image'];
 
+            $insert_order_products = $conn->prepare("INSERT INTO `order_products`(oid, name, price, quantity, image) VALUES(?,?,?,?,?)");
+            $insert_order_products->execute([$order_id, $name, $price, $qty, $image]);
+        }
+    }
+
+    $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
+    $delete_cart->execute([$user_id]);
+
+    unset($_SESSION['grand_total']);
+
+    header('location:./pesanan.php');
+ 
+
+
+ 
+ }
+ 
 ?>
+
+
 
 <!DOCTYPE html>
     <html lang="en">
@@ -146,10 +185,9 @@ if(isset($_POST['edit_cart'])){
             </nav>
             
         </header>
-
         <section class="menu section">
-            <span class="menu_subtitle">Cek Kembali Keranjangmu</span>
-            <h4 class="menu_title">Keranjang</h4>
+            <span class="menu_subtitle">Cek Kembali Belanjaanmu</span>
+            <h4 class="menu_title">Checkout</h4>
 
             <div class="cartboxs container grid">
                 <div class="cartboxs1">
@@ -160,13 +198,33 @@ if(isset($_POST['edit_cart'])){
                             $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
                     ?>
                     <div class="cart_box">
+                        <?php
+                        if($grand_total > 20000){
+                            $ongkir = 0;
+                        ?>
+                        <div class="cart_info">
+                            <i class="ri-information-line"></i>
+                            <h4>Yay, ongkir untuk pesanan dalam transaksi ini ditanggung Bajikuyyy!</h4>
+                        </div>
+                        <?php
+                        }else{
+                            $ongkir = 5000;
+                        ?>
                         <div class="cart_info">
                             <i class="ri-information-line"></i>
                             <h4>Kamu dapat <b>Bebas Ongkir</b> min. belanja RP20 rb, ya. Hari ini terakhir.</h4>
                         </div>
-                        <div class="cart_info1">
-                            <i class="ri-map-pin-line"></i>
-                            <h4>Dikirim ke <b><?= $fetch_profile['address']; ?></b></h4>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="cart_box">
+                        <div class="cart_info3">
+                            <h4><b>Alamat Pengiriman</b></h4>
+                        </div>
+                        <div class="cart_info2">
+                            <h4><?= $fetch_profile['name']; ?> (<?= $fetch_profile['number']; ?>)</h4>
+                            <h4><?= $fetch_profile['address']; ?></h4>
                         </div>
                     </div>
 
@@ -181,6 +239,8 @@ if(isset($_POST['edit_cart'])){
                     ?>
                     <form action="" method="post" class="cart_box1 grid">
                         <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
+                        <input type="hidden" name="cart_qty" value="<?= $fetch_cart['quantity']; ?>">
+                        <input type="hidden" name="cart_price" value="<?= $fetch_cart['price']; ?>">
                         <div class="cart_img">
                             <img src="./update_img/<?= $fetch_cart['image']; ?>" alt="">
                         </div>
@@ -188,21 +248,8 @@ if(isset($_POST['edit_cart'])){
                         <div class="cart_menu">
                             <div class="cart_menu-info">
                                 <h4><?= $fetch_cart['name']; ?></h4>
-                                <h4><?= "Rp " . number_format($fetch_cart['price']); ?></h4>
-                            </div>
-                            <div class="cart_menu-info1 grid">
-                                <div class="sub-total">
-                                    <h4> <b> Sub total : <?= "Rp " . number_format($sub_total = ($fetch_cart['price'] * $fetch_cart['quantity'])); ?>/- </b></h4>
-                                </div>
-                                <div class="cart-qty">
-                                    <button class="cart-btn" type="submit" name="hapus_cart" onclick="return confirm('Hapus keranjang untuk menu ini?')";>
-                                        <i class="ri-delete-bin-line"></i>
-                                    </button>
-                                    <input type="number" name="qty" class="qty" min="1" max="99" value="<?= $fetch_cart['quantity']; ?>" maxlength="2">
-                                    <button class="cart-btn" type="submit" name="edit_cart">
-                                        <i class="ri-pencil-line"></i>
-                                    </button>
-                                </div>
+                                <h6>( <?= $fetch_cart['quantity']; ?> Barang )</h4>
+                                <h4><?= "Rp " . number_format($sub_total = ($fetch_cart['price'] * $fetch_cart['quantity'])); ?></h4>
                             </div>
                         </div>
 
@@ -219,62 +266,43 @@ if(isset($_POST['edit_cart'])){
 
                 <div class="cartboxs2">
                     <div class="cart-totals">
-                        <form action="" method="post" class="cart_hapus-btn">
-                            <button class="cart_hapus-btn1" type="submit" name="hapusall_cart" onclick="return confirm('Hapus semua keranjang?')";>
-                                Hapus Semua
-                            </button>
-                        </form>
                         <h4 class="cart-text1"> <b>Ringkasan Belanja</b> </h4>
-                        <div class="cart-total cart-text1">
+                        <div class="cart-text1">
                             <span>Total Harga( <?= $grand_total_barang ?> Barang )</span>
                             <span><?="Rp " . number_format($grand_total)?></span>
                         </div>
-                        <div class="cart-text1">
-                            <span><b>Total Harga</b></span>
-                            <span> <b> <?="Rp " . number_format($grand_total)?> </b></span>
-                        </div>
-                        <a href="./checkout.php" class="btn cart-btn1">Beli</a>
-                    </div>
-                </div>
-
-                    <?php
-                        $_SESSION['total'] = $grand_total;
-                        }else{
-                    ?>
-                    <div class="cart-empty">
-                        <i class="ri-emotion-sad-line"></i>
-                        <h4 class="h4-text1"> <b> Wah, keranjang belanjamu kosong </b></h4>
-                        <h5 class="h5-text1"> Yuk, isi dengan Minuman dan Makanan Favoritmu! </h5>
-                        <a href="./index.php#menu" class="btn cart-btn1">Mulai Belanja</a>
-                    </div>
-                </div> 
-
-                <div class="cartboxs2">
-                    <div class="cart-totals">
-                        <form action="" method="post" class="cart_hapus-btn">
-                            <button class="cart_hapus-btn1" type="submit" name="-" disabled>
-                                Hapus Semua
-                            </button>
-                        </form>
-                        <h4 class="cart-text1"> <b>Ringkasan Belanja</b> </h4>
                         <div class="cart-total cart-text1">
-                            <span>Total Harga( - Barang)</span>
-                            <span>Rp -</span>
+                            <span>Ongkir</span>
+                            <span><?="Rp " . number_format($ongkir)?></span>
                         </div>
                         <div class="cart-text1">
                             <span><b>Total Harga</b></span>
-                            <span> <b> Rp - </b></span>
+                            <span> <b> <?="Rp " . number_format($grand_total + $ongkir)?> </b></span>
                         </div>
-                        <a href="./checkout.php" class="btn cart-btn1" id="lokbtn">Beli</a>
+                        <form action="" method="post" enctype="multipart/form-data">
+                            <h4 class="cart-text1"> <b>Pilih Pembayaran</b> </h4>
+                            <select name="method" class="cart-payment" required>
+                                <option value="" disabled selected>Pilih Metode Pembayaran --</option>
+                                <option value="1">COD (Bayar di Tempat)</option>
+                                <option value="2">BCA (Bank Central Asia)</option>
+                                <option value="3">BRI (Bank Rakyat Indonesia)</option>
+                                <option value="4">BTN (Bank Tabungan Negara)</option>
+                                <option value="5">Mandiri</option>
+                            </select>
+                            <input type="hidden" name="total_products" value="<?= $grand_total_barang; ?>">
+                            <input type="hidden" name="total_price" value="<?= $grand_total + $ongkir; ?>" >
+                            <input type="hidden" name="name" value="<?= $fetch_profile['name'] ?>">
+                            <input type="hidden" name="number" value="<?= $fetch_profile['number'] ?>">
+                            <input type="hidden" name="email" value="<?= $fetch_profile['email'] ?>">
+                            <input type="hidden" name="address" value="<?= $fetch_profile['address'] ?>">
+                            <input type="submit" value="Beli" class="btn" id="lokabtn" name="submit">
+                        </form>
                     </div>
                 </div>
 
                     <?php
                         }
                     ?>
-
-
-
             </div>
 
 
@@ -285,7 +313,6 @@ if(isset($_POST['edit_cart'])){
 
 
 
-        </section>
 
 
 
