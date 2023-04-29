@@ -151,7 +151,7 @@ include 'components/add_cart.php';
                 <?php
                     if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
                         $search_box = $_POST['search_box'];
-                        $select_menu = $conn->prepare("SELECT * FROM `products` WHERE name LIKE '%{$search_box}%'");
+                        $select_menu = $conn->prepare("SELECT * FROM `products` WHERE name LIKE '%{$search_box}%' ORDER BY `id` DESC");
                         $select_menu->execute();
                         if($select_menu->rowCount() > 0){
                             while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
@@ -180,7 +180,7 @@ include 'components/add_cart.php';
                 ?>
                 <?php
                     if(!isset($_POST['search_box']) OR !isset($_POST['search_btn'])){
-                        $select_menu = $conn->prepare("SELECT * FROM `products`");
+                        $select_menu = $conn->prepare("SELECT * FROM `products` ORDER BY `id` DESC");
                         $select_menu->execute();
                         if($select_menu->rowCount() > 0){
                             while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
@@ -217,9 +217,6 @@ include 'components/add_cart.php';
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="./js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="./js/header.js"></script>

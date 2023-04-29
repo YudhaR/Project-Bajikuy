@@ -234,7 +234,7 @@ if(isset($_POST['submit'])){
                                 }
                             ?>
                         </div>
-                        <input type="submit" value="Tambah" class="button" id="lokabtn" name="submit">
+                        <input type="submit" value="Tambah" class="btn" id="lokabtn" name="submit">
                     </form>
                     <?php
                             }
@@ -269,9 +269,6 @@ if(isset($_POST['submit'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="../js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="../js/header.js"></script>

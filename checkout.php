@@ -34,8 +34,13 @@ if(isset($_POST['submit'])){
     $total_products = $_POST['total_products'];
     $total_price = $_POST['total_price'];
     $placed_on = date('Y-m-d');
-    $payment_status = "Menunggu Pembayaran";
     $waktu = date('H:i:s');
+
+    if($method != "1"){
+        $payment_status = "Menunggu Pembayaran";
+    }else{
+        $payment_status = "Menunggu Verifikasi";
+    }
  
     $insert_order = $conn->prepare("INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, payment_status, waktu) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
     $insert_order->execute([$user_id, $name, $number, $email, $method, $address, $total_products, $total_price, $placed_on, $payment_status, $waktu]);
@@ -51,8 +56,8 @@ if(isset($_POST['submit'])){
             $qty = $data1['quantity'];
             $image = $data1['image'];
 
-            $insert_order_products = $conn->prepare("INSERT INTO `order_products`(oid, name, price, quantity, image) VALUES(?,?,?,?,?)");
-            $insert_order_products->execute([$order_id, $name, $price, $qty, $image]);
+            $insert_order_products = $conn->prepare("INSERT INTO `order_products`(user_id, oid, name, price, quantity, image) VALUES(?,?,?,?,?)");
+            $insert_order_products->execute([$user_id, $order_id, $name, $price, $qty, $image]);
         }
     }
 
@@ -61,7 +66,13 @@ if(isset($_POST['submit'])){
 
     unset($_SESSION['grand_total']);
 
-    header('location:./pesanan.php');
+    if($method != "1"){
+        header('location:./pembayaran1.php?pembayaran1=' . $order_id);
+    }else{
+        header('location:./pesanan.php');
+    }
+
+    
  
 
 
@@ -328,9 +339,6 @@ if(isset($_POST['submit'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="./js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="./js/header.js"></script>

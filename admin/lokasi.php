@@ -64,7 +64,7 @@ if(isset($_GET['delete'])){
 
         <!--=============== ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="../css/style.css">
@@ -210,7 +210,7 @@ if(isset($_GET['delete'])){
                         </div>
                     </div>
                 <?php
-                    $select_lokasi = $conn->prepare("SELECT * FROM `lokasi`");
+                    $select_lokasi = $conn->prepare("SELECT * FROM `lokasi` ORDER BY `id` DESC");
                     $select_lokasi->execute();
                     if($select_lokasi->rowCount() > 0){
                         while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
@@ -229,7 +229,7 @@ if(isset($_GET['delete'])){
                                 <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
                                 <div class="tombol-container">
                                     <a href="../admin/update_lokasi.php?update=<?= $fetch_lokasi['id']; ?>" class="btn" id="lokabtn">update</a>
-                                    <a href="../admin/lokasi.php?delete=<?= $fetch_lokasi['id']; ?>" class="delete-btn" id="lokabtn" onclick="return confirm('delete this product?');">delete</a>
+                                    <a href="../admin/lokasi.php?delete=<?= $fetch_lokasi['id']; ?>" class="delete-btn" id="lokabtn" onclick="return confirm('Hapus Lokasi ini?');">delete</a>
                                 </div>
                             </div>
                         </div>
@@ -255,9 +255,6 @@ if(isset($_GET['delete'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="../js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="../js/header.js"></script>

@@ -95,7 +95,7 @@ if(isset($_POST['submit'])){
             </div>
         </div>
         <p class="login_regis">Tidak mempunyai akun? <a href="./register.php">Daftar Sekarang</a></p>
-        <input type="submit" value="Masuk" class="button" id="fbutton" name="submit">
+        <input type="submit" value="Masuk" class="btn" id="lokabtn" name="submit">
    </form>
 
 </section>

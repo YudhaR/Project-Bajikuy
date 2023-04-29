@@ -180,8 +180,5 @@ if(isset($_GET['delete'])){
             <i class="ri-arrow-up-line"></i>
         </a>
 
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="../js/scrollreveal.min.js"></script>
-
         <!--=============== Header JS ===============-->
         <script src="../js/header.js"></script>

@@ -98,27 +98,27 @@ if(isset($_POST['submit'])){
         <h3 class="section_title regis_title">Masuk Sekarang</h3>
         <div class="regis_inputs">
             <div class="regis_content">
-                <input type="text" required placeholder=" " class="regis_input" name="name">
+                <input type="text" required placeholder=" " class="regis_input" name="name" maxlength="200">
                 <label for="" class="regis_label">Name</label>  
             </div>
 
             <div class="regis_content">
-                <input type="email" required placeholder=" " class="regis_input" name="email">
+                <input type="email" required placeholder=" " class="regis_input" name="email" maxlength="50">
                 <label for="" class="regis_label">Email</label>  
             </div>
 
             <div class="regis_content">
-                <input type="number" required placeholder=" " class="regis_input" name="number">
+                <input type="number" required placeholder=" " class="regis_input" name="number" minlength="0" maxlength="15">
                 <label for="" class="regis_label">Number</label>
             </div>
 
             <div class="regis_content">
-                <input type="password" required placeholder=" " class="regis_input" name="pass">
+                <input type="password" required placeholder=" " class="regis_input" name="pass" minlength="8" maxlength="50">
                 <label for="" class="regis_label">Password</label>
             </div>
 
             <div class="regis_content">
-                <input type="password" required placeholder=" " class="regis_input" name="cpass">
+                <input type="password" required placeholder=" " class="regis_input" name="cpass" minlength="8" maxlength="50">
                 <label for="" class="regis_label">Confirm Password</label>
             </div>
 
@@ -129,7 +129,7 @@ if(isset($_POST['submit'])){
             </select>
         </div>
         <p class="regis">Sudah mempunyai akun? <a href="./login.php">Masuk Sekarang</a></p>
-        <input type="submit" value="Masuk" class="button" id="rbutton" name="submit">
+        <input type="submit" value="Daftar" class="btn" id="lokabtn" name="submit">
    </form>
 
 </section>

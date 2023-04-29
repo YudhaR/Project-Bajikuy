@@ -26,8 +26,10 @@ if(isset($_GET['delete'])){
     $delete_image->execute([$delete_id]);
     $fetch_delete_image = $delete_image->fetch(PDO::FETCH_ASSOC);
     unlink('../update_img/'.$fetch_delete_image['image']);
+
     $delete_product = $conn->prepare("DELETE FROM `products` WHERE id = ?");
     $delete_product->execute([$delete_id]);
+    
     $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE pid = ?");
     $delete_cart->execute([$delete_id]);
 
@@ -192,7 +194,7 @@ if(isset($_GET['delete'])){
                         </div>
                     </div>
                     <?php
-                    $select_menu = $conn->prepare("SELECT * FROM `products`");
+                    $select_menu = $conn->prepare("SELECT * FROM `products` ORDER BY `id` DESC");
                     $select_menu->execute();
                     if($select_menu->rowCount() > 0){
                         while($fetch_menu = $select_menu->fetch(PDO::FETCH_ASSOC)){
@@ -229,9 +231,6 @@ if(isset($_GET['delete'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="../js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="../js/header.js"></script>

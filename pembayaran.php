@@ -1,6 +1,6 @@
 <?php
 
-include 'components/connect.php';
+include './components/connect.php';
 
 session_start();
 
@@ -8,6 +8,7 @@ if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
 }else{
    $user_id = '';
+   header('location:./login.php');
 };
 
 ?>
@@ -31,7 +32,6 @@ if(isset($_SESSION['user_id'])){
         <title>Bajikuy</title>
     </head>
     <body>
-    
 
         <?php
             if(isset($message)){
@@ -64,13 +64,13 @@ if(isset($_SESSION['user_id'])){
                             <a href="./index.php#cerita"about class="nav__link">Cerita</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./index.php#lokasi" class="nav__link  active-link">Lokasi</a>
+                            <a href="./index.php#lokasi" class="nav__link">Lokasi</a>
                         </li>
                         <li class="nav__item">
                             <a href="./index.php#menu" class="nav__link">Menu</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./pesanan.php" class="nav__link">Pesanan</a>
+                            <a href="./pesanan.php" class="nav__link active-link">Pesanan</a>
                         </li>
                         <li class="nav__item">
                             <a href="./index.php#bantuan" class="nav__link">Bantuan</a>
@@ -87,7 +87,7 @@ if(isset($_SESSION['user_id'])){
                         $hitung_keranjang->execute([$user_id]);
                         $total_keranjang = $hitung_keranjang->rowCount();
                     ?>
-                    <a href="cart.php" class="barang"><i class="fas fa-shopping-cart"></i><span>(<?= $total_keranjang; ?>)</span></a>
+                    <a href="cart.php" class="barang "><i class="fas fa-shopping-cart "></i><span>(<?= $total_keranjang; ?>)</span></a>
                     <div id="user-btn" class="fas fa-user"></div>
                     <!-- Toggle button -->
                     <div class="nav__toggle" id="nav-toggle">
@@ -95,7 +95,7 @@ if(isset($_SESSION['user_id'])){
                     </div>
                 </div>
 
-                <div class="profile">
+            <div class="profile">
                 <?php
                     $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
                     $select_profile->execute([$user_id]);
@@ -127,79 +127,117 @@ if(isset($_SESSION['user_id'])){
             
         </header>
 
-        <section class="search-form container">
-            <div class="search_content">
-                <form method="post" action="">
-                    <input type="text" name="search_box" placeholder="Cari Lokasi Didekatmu..." class="search_input">
-                    <div class="search_container">
-                        <button type="submit" name="search_btn" class="search_btn">
-                            <i class="ri-search-line"></i>
-                        </button>
+        <section class="menu section">
+            <div class="pesanan_boxs2 container">
+                <div class="pesanan4_box1">
+                    <a href="./pesanan.php">
+                        <i class="ri-arrow-left-line pesanan2-icon"></i>
+                    </a>
+                    <span>Menunggu Pembayaran</span>
+                </div>
+                <?php
+                $pstatus = "Menunggu Pembayaran";
+                $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ? AND payment_status = ? ORDER BY `id` DESC");
+                $select_orders->execute([$user_id, $pstatus]);
+                    if($select_orders->rowCount() > 0){
+                        while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <div class="pesanan_box2">
+                    <i class="ri-shopping-bag-2-line pesanan-icon1"></i>
+                    <span class="pesanan-text">Belanja</span>
+                    <span class="pesanan-text3"><?= $fetch_orders['placed_on']; ?></span>
+                    <?php
+                    if($fetch_orders['payment_status']  == "Menunggu Pembayaran"){
+                    ?>
+                    <span class="hapus1"><?= $fetch_orders['payment_status']; ?></span>
+                    <?php
+                    }else if($fetch_orders['payment_status']  == "Menunggu Verifikasi"){
+                    ?>
+                    <span class="edit1"><?= $fetch_orders['payment_status']; ?></span>
+                    <?php
+                    }else if($fetch_orders['payment_status']  == "Sedang Diperjalanan"){
+                    ?>
+                    <span class="edit1"><?= $fetch_orders['payment_status']; ?></span>
+                    <?php
+                    }else if($fetch_orders['payment_status']  == "Selesai"){
+                    ?>
+                    <span class="tambah1"><?= $fetch_orders['payment_status']; ?></span>
+                    <?php
+                    }
+                    $oid = $fetch_orders['id'];
+                    $select_order_products1 = $conn->prepare("SELECT * FROM `order_products` WHERE oid = ?");
+                    $select_order_products1->execute([$oid]);
+                    $select_order_products = $conn->prepare("SELECT * FROM `order_products` WHERE oid = ? LIMIT 1");
+                    $select_order_products->execute([$oid]);
+                        if($select_order_products->rowCount() > 0){
+                            while($fetch_order_products = $select_order_products->fetch(PDO::FETCH_ASSOC)){
+                    ?>
+                    <div class="pesanan_box3">
+                        <div class="pesanan_box4">
+                            <div class="pesanan_box6">
+                                <img src="./update_img/<?= $fetch_order_products['image']; ?>" alt="Menu Image">
+                            </div>
+                            <div class="pesanan_box7">
+                                <h5><b><?= $fetch_order_products['name']; ?></b></h5>
+                                <span><?= $fetch_order_products['quantity']; ?> Barang x </span>
+                                <span><?= "Rp " . number_format($fetch_order_products['price']) ?></span>
+                                <h4>+<?= $select_order_products1->rowCount() - 1 ?> Produk Lainnya</h4>
+                            </div>
+                        </div>
+                        <div class="pesanan_box5">
+                            <h4 class="pesanan_box5-text">Total Belanja</h4>
+                            <h4 class="pesanan_box5-text1"><?= "Rp " . number_format($fetch_orders['total_price']) ?></h4>
+                            <a href="pembayaran1.php?pembayaran1=<?= $fetch_orders['id']; ?>" class="pesanan1-link">Lanjutkan Pembayaran</a>
+                        </div>
                     </div>
-                </form>
-            </div>
-
-        </section>
-
-        <section class="lokasi section" id="lokasi1">
-            <span class="lokasi_subtitle1">Secangkir Gelasmu</span>
-            <h4 class="lokasi_title">Lokasi</h4>
-                <div class="bloks1 container">
-
                     <?php
-                        if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
-                            $search_box = $_POST['search_box'];
-                            $select_lokasi = $conn->prepare("SELECT * FROM `lokasi` WHERE judul LIKE '%{$search_box}%' ORDER BY `id` DESC");
-                            $select_lokasi->execute();
-                            if($select_lokasi->rowCount() > 0){
-                                while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
-                                    $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
-                                    $select_nama->execute([$fetch_lokasi['user_id']]);
-                                    $fetch_name = $select_nama->fetch();
-                    ?>
-                            <a href="<?= $fetch_lokasi['link']; ?>" class="blok1" target="_blank">
-                                <div class="image">
-                                    <img src="update_img/<?= $fetch_lokasi['image']; ?>" alt="">
-                                </div>
-                                <div class="content">
-                                    <h3><?= $fetch_lokasi['judul']; ?></h3>
-                                    <p><?= $fetch_lokasi['deskripsi']; ?></p>
-                                    <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
-                                    <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
-                                </div>
-                            </a>
-                    <?php
-                                }
-                            }
-                        }
-                    ?>
-                    <?php
-                        if(!isset($_POST['search_box']) OR !isset($_POST['search_btn'])){
-                            $select_lokasi = $conn->prepare("SELECT * FROM `lokasi` ORDER BY `id` DESC");
-                            $select_lokasi->execute();
-                            if($select_lokasi->rowCount() > 0){
-                                while($fetch_lokasi = $select_lokasi->fetch(PDO::FETCH_ASSOC)){
-                                    $select_nama = $conn->prepare("SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id WHERE lokasi.user_id = ?");
-                                    $select_nama->execute([$fetch_lokasi['user_id']]);
-                                    $fetch_name = $select_nama->fetch();
-                    ?>
-                            <a href="<?= $fetch_lokasi['link']; ?>" class="blok1" target="_blank">
-                                <div class="image">
-                                    <img src="update_img/<?= $fetch_lokasi['image']; ?>" alt="">
-                                </div>
-                                <div class="content">
-                                    <h3><?= $fetch_lokasi['judul']; ?></h3>
-                                    <p><?= $fetch_lokasi['deskripsi']; ?></p>
-                                    <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
-                                    <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
-                                </div>
-                            </a>
-                    <?php
-                                }
                             }
                         }
                     ?>
                 </div>
+
+                <?php
+                        }
+                    }else{
+                ?>
+                    <div class="cart-empty">
+                        <i class="ri-emotion-sad-line"></i>
+                        <h4 class="h4-text1"> <b> Belum ada transasksi </b></h4>
+                        <h5 class="h5-text1"> Yuk, isi dengan Minuman dan Makanan Favoritmu! </h5>
+                        <a href="./index.php#menu" class="btn cart-btn1">Mulai Belanja</a>
+                    </div>
+                <?php
+                    }
+                ?>
+            </div>
+
+
+
+
+
+
+
+
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -209,9 +247,7 @@ if(isset($_SESSION['user_id'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
+
         <!--=============== Header JS ===============-->
         <script src="./js/header.js"></script>
-        <!--=============== SEARCH JS ===============-->      
-        <script src="./js/search.js"></script>
-        
     </body>

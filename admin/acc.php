@@ -18,7 +18,35 @@ if(isset($_SESSION['user_id'])){
    header('location:../index.php');
 }
 
+if(isset($_POST['submit'])){
+    $uid = $_POST['uid'];
+    $urole = $_POST['urole'];
 
+    if($urole == "user"){
+        $delete_user = $conn->prepare("DELETE FROM `users` WHERE id = ?");
+        $delete_user->execute([$uid]);
+
+        $delete_orders = $conn->prepare("DELETE FROM `orders` WHERE user_id = ?");
+        $delete_orders->execute([$uid]);
+        
+        $delete_cart = $conn->prepare("DELETE FROM `cart` WHERE user_id = ?");
+        $delete_cart->execute([$uid]);
+
+        $delete_order_products = $conn->prepare("DELETE FROM `order_products` WHERE user_id = ?");
+        $delete_order_products->execute([$uid]);
+
+        $message[] = 'Akun berhasil dihapus!';
+    }else if($urole == "seller"){
+        $delete_user = $conn->prepare("DELETE FROM `users` WHERE id = ?");
+        $delete_user->execute([$uid]);
+
+        $delete_lokasi = $conn->prepare("DELETE FROM `lokasi` WHERE user_id = ?");
+        $delete_lokasi->execute([$uid]);
+
+        $message[] = 'Akun berhasil dihapus!';
+    }
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -67,22 +95,22 @@ if(isset($_SESSION['user_id'])){
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="../admin/index.php" class="nav__link">Beranda</a>
+                            <a href="../admin/index.php" class="nav__link ">Beranda</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/lokasi.php"about class="nav__link ">Lokasi</a>
+                            <a href="../admin/lokasi.php"about class="nav__link">Lokasi</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/menu.php" class="nav__link active-link">Menu</a>
+                            <a href="../admin/menu.php" class="nav__link">Menu</a>
                         </li>
                         <li class="nav__item">
                             <a href="../admin/pesanan.php" class="nav__link">Pesanan</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/bantuan.php" class="nav__link ">Bantuan</a>
+                            <a href="../admin/bantuan.php" class="nav__link">Bantuan</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/acc.php" class="nav__link">Akun</a>
+                            <a href="../admin/acc.php" class="nav__link active-link">Akun</a>
                         </li>
                     </ul>
                     <!-- Close button -->
@@ -130,90 +158,74 @@ if(isset($_SESSION['user_id'])){
             
         </header>
 
-        <section class="pbox container grid">
-            <div class="profile_container">
-                <div class="profile-box">
-                    <a href="../admin/menu.php"><i class="ri-arrow-left-line icon_panah"></i></a>
-                    <span class="section_title profile_title1">Riwayat Menu</span> 
-                </div>
-
-                <div class="profile-box">
-                    <h3 class="profile_title3">Riwayat Penambahan Menu Warung Atau Outlet Yang Telah Diinput Oleh Admin!</h3> 
-                </div>
-
-
-                <div class="records table-responsive">
-                    <div>
-                        <table width="100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>USERNAME</th>
-                                    <th>JUDUL</th>
-                                    <th>STATUS</th>
-                                    <th>WAKTU</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                                $select_update = $conn->prepare("SELECT * FROM `tabel_products` ORDER BY `id` DESC");
-                                $select_update->execute();
-                                if(($select_update->rowCount() > 0)){
-                                    while($fetch_update = $select_update->fetch(PDO::FETCH_ASSOC)){
-                            ?>
-                                <tr>
-                                    <td><?= $fetch_update['user_id']; ?></td>
-                                    <td>
-                                        <div class="client">
-                                            <div class="client-info">
-                                                <h4><?= $fetch_update['name']; ?></h4>
-                                                <small><?= $fetch_update['email']; ?></small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <?= $fetch_update['judul']; ?>
-                                    </td>
-                                <?php
-                                    if($fetch_update['status'] == "Menambahkan"){
-                                ?>
-                                    <td class="tambah">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }else if($fetch_update['status'] == "Mengedit"){
-                                ?>
-                                    <td class="edit">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }else if($fetch_update['status'] == "Menghapus"){
-                                ?>
-                                    <td class="hapus">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }
-                                ?>
-                                    <td>
-                                        <?= $fetch_update['waktu']; ?>
-                                    </td>
-                                </tr>
-                            <?php
-                                    }
-                                }
-                            ?>
-                        </table>
+        <section class="acc section">
+            <div class="transboxs container grid">
+            <?php
+                $role1 = "user";
+                $role2 = "seller";
+                $select_users = $conn->prepare("SELECT * FROM `users` WHERE role = ? OR role = ?");
+                $select_users->execute([$role1, $role2]);
+                if($select_users->rowCount() > 0){
+                    while($fetch_users = $select_users->fetch(PDO::FETCH_ASSOC)){
+            ?>
+                <div class="transbox13">
+                    <div class="tran-icon4">
+                        <i class="ri-team-line"></i>
                     </div>
+                    <h5><b><?= $fetch_users['name']; ?></b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4><?= $fetch_users['email']; ?></h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4>#<?= $fetch_users['id']; ?> </h4>
+                        </div>
+                    </div>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4><?= $fetch_users['role']; ?></h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $fetch_users['number']; ?> </h4>
+                        </div>
+                    </div>
+                    <form action="" method="post" enctype="multipart/form-data" class="transdlt">
+                        <input type="hidden" name="uid" value="<?= $fetch_users['id']; ?>">
+                        <input type="hidden" name="urole" value="<?= $fetch_users['role']; ?>">
+                        <input type="submit" value="Hapus" class="delete-btn" id="transbtn" name="submit" onclick="return confirm('Hapus Lokasi ini?')">
+                    </form>
                 </div>
+            <?php
+                }
+            }
+            ?>   
             </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </section>
-
-
- 
-
-
 
 
 
@@ -227,6 +239,7 @@ if(isset($_SESSION['user_id'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
+
 
         <!--=============== Header JS ===============-->
         <script src="../js/header.js"></script>

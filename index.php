@@ -235,7 +235,7 @@ if(isset($_POST['submit'])){
 
                     <p class="cerita_description">Wedang jahe merupakan minuman tradisional yang diwariskan oleh nenek moyang secara turun temurun. Minuman tradisional yang diolah dengan cara sederhana. Umum disajikan panas atau hangat. Wedang berasal dari bahasa jawa yang berarti “minuman jahe”. Jahe segar dipukul atau digeprek dipadukan dengan gula jawa, gula pasir, madu atau gula batu dalam sebuah gelas bercampur air panas. Jahe juga bisa ditambah rempah lain seperti cengkih, kayu manis dan daun pandan. Aroma menjadi khas nan menawan.</p>
 
-                    <a href="#menu" class="button">
+                    <a href="#menu" class="btn">
                         Beli Sekarang <i class="ri-arrow-right-line"></i>
                     </a>
                 </div>
@@ -252,7 +252,7 @@ if(isset($_POST['submit'])){
             <div class="bloks container">
 
                 <?php
-                    $select_lokasi = $conn->prepare("SELECT * FROM `lokasi`");
+                    $select_lokasi = $conn->prepare("SELECT * FROM `lokasi` ORDER BY `id` DESC");
                     $select_lokasi->execute();
                     // $select_nama = "SELECT users.role FROM users JOIN lokasi ON users.id = lokasi.user_id";
                     // $result = $conn->query($select_nama);
@@ -433,7 +433,7 @@ if(isset($_POST['submit'])){
 
             <div class="bmens container">
                 <?php
-                    $select_menu = $conn->prepare("SELECT * FROM `products`");
+                    $select_menu = $conn->prepare("SELECT * FROM `products` ORDER BY `id` DESC");
                     $select_menu->execute();
                     if($select_menu->rowCount() > 3){
                         while($fetch_products = $select_menu->fetch(PDO::FETCH_ASSOC)){
@@ -677,7 +677,7 @@ if(isset($_POST['submit'])){
                         </div>
                     </div>
 
-                    <button type="submit" class="button" id="bantuan_button" name="submit">
+                    <button type="submit" class="btn" id="lokabtn" name="submit">
                         Kirim Pesan
                         <i class="ri-arrow-right-up-line button_icon"></i>
                     </button>
@@ -691,10 +691,7 @@ if(isset($_POST['submit'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="./js/scrollreveal.min.js"></script>
-
+        
         <!--=============== Header JS ===============-->
         <script src="./js/header.js"></script>
 

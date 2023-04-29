@@ -30,7 +30,7 @@ if(isset($_SESSION['user_id'])){
 
         <!--=============== ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="../css/style.css">
@@ -128,6 +128,287 @@ if(isset($_SESSION['user_id'])){
             
         </header>
 
+        <section class="transaksi section">
+            <span class="transaksi_subtitle">Dashboard Admin Panel</span>
+            <h4 class="transaksi_title">Beranda</h4>
+
+            <?php
+                $pstatus1 = "Menunggu Pembayaran";
+                $pstatus2 = "Menunggu Verifikasi";
+                $pstatus3 = "Sedang Diperjalanan";
+                $pstatus4 = "Selesai";
+                $total1 = 0;
+                $total2 = 0;
+                $total3 = 0;
+                $total4 = 0;
+                $total_uang = 0;
+                $total_pesanan = 0;
+
+                $select_pembayaran1 = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
+                $select_pembayaran1->execute([$pstatus1]);
+                if($select_pembayaran1->rowCount() > 0){
+                    while($fetch_pembayaran1 = $select_pembayaran1->fetch(PDO::FETCH_ASSOC)){
+                        $total1 += $fetch_pembayaran1['total_price'];
+                    }
+                }
+
+
+                $select_pembayaran2 = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
+                $select_pembayaran2->execute([$pstatus2]);
+                if($select_pembayaran2->rowCount() > 0){
+                    while($fetch_pembayaran2 = $select_pembayaran2->fetch(PDO::FETCH_ASSOC)){
+                        $total2 += $fetch_pembayaran2['total_price'];
+                    }
+                }
+
+                $select_pembayaran3 = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
+                $select_pembayaran3->execute([$pstatus3]);
+                if($select_pembayaran3->rowCount() > 0){
+                    while($fetch_pembayaran3 = $select_pembayaran3->fetch(PDO::FETCH_ASSOC)){
+                        $total3 += $fetch_pembayaran3['total_price'];
+                    }
+                }
+
+                $select_pembayaran4 = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
+                $select_pembayaran4->execute([$pstatus4]);
+                if($select_pembayaran4->rowCount() > 0){
+                    while($fetch_pembayaran4 = $select_pembayaran4->fetch(PDO::FETCH_ASSOC)){
+                        $total4 += $fetch_pembayaran4['total_price'];
+                    }
+                }
+
+                $total_uang = $total1 + $total2 + $total3 + $total4;
+                $total_pesanan = $select_pembayaran1->rowCount() + $select_pembayaran2->rowCount() + $select_pembayaran3->rowCount() + $select_pembayaran4->rowCount();
+
+                $select_users = $conn->prepare("SELECT * FROM `users`");
+                $select_users->execute();
+
+                $select_order_products = $conn->prepare("SELECT * FROM `order_products`");
+                $select_order_products->execute();
+
+                $select_products = $conn->prepare("SELECT * FROM `products`");
+                $select_products->execute();
+
+                $role1 = "user";
+                $role2 = "seller";
+                $role3 = "admin";
+
+                $select_lokasi = $conn->prepare("SELECT * FROM `lokasi`");
+                $select_lokasi->execute();
+
+                
+                $select_role2 = $conn->prepare("SELECT COUNT(*) as total_role2 FROM lokasi WHERE user_id IN (SELECT id FROM users WHERE role = ?)");
+                $select_role2->execute([$role2]);
+                $fetch_role2 = $select_role2->fetch(PDO::FETCH_ASSOC);
+                $total_role2 = $fetch_role2['total_role2'];
+
+                $select_role3 = $conn->prepare("SELECT COUNT(*) as total_role3 FROM lokasi WHERE user_id IN (SELECT id FROM users WHERE role = ?)");
+                $select_role3->execute([$role3]);
+                $fetch_role3 = $select_role3->fetch(PDO::FETCH_ASSOC);
+                $total_role3 = $fetch_role3['total_role3'];
+
+                $select_bantuan = $conn->prepare("SELECT * FROM `messages`");
+                $select_bantuan->execute();
+
+                $select_users1 = $conn->prepare("SELECT * FROM `users` WHERE role = ?");
+                $select_users1->execute([$role1]);
+
+                $select_users2 = $conn->prepare("SELECT * FROM `users` WHERE role = ?");
+                $select_users2->execute([$role2]);
+
+                $select_users3 = $conn->prepare("SELECT * FROM `users` WHERE role = ?");
+                $select_users3->execute([$role3]);
+
+                
+
+
+
+
+
+                
+            ?>
+
+            <div class="transboxs container grid">
+                <div class="transbox13">
+                    <div class="tran-icon4">
+                        <i class="ri-team-line"></i>
+                    </div>
+                    <h5><b>-</b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Users</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?=  $select_users->rowCount()?> Users</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox13">
+                    <div class="tran-icon4">
+                        <i class="ri-group-line"></i>
+                    </div>
+                    <h5><b>-</b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Role User</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?=  $select_users1->rowCount()?> User</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox13">
+                    <div class="tran-icon4">
+                        <i class="ri-user-add-line"></i>
+                    </div>
+                    <h5><b>-</b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Role Seller</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?=  $select_users2->rowCount()?> Seller</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox13">
+                    <div class="tran-icon4">
+                        <i class="ri-admin-line"></i>
+                    </div>
+                    <h5><b>-</b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Role Admin</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?=  $select_users3->rowCount()?> Admin</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox1">
+                    <div class="tran-icon1">
+                        <i class="ri-mail-unread-line"></i>
+                    </div>
+                    <h5><b>-</b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Pesan Bantuan</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $select_bantuan->rowCount()?> Pesan</h4>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="transbox5">
+                    <div class="tran-icon2">
+                        <i class="ri-map-pin-line"></i>
+                    </div>
+                    <h5><b><?=$select_lokasi->rowCount()?> Lokasi</b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Lokasi Tersedia</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $total_role2 ?> Seller dan <?= $total_role3?> Admin</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox5">
+                    <div class="tran-icon2">
+                        <i class="ri-shopping-cart-2-line"></i>
+                    </div>
+                    <h5><b><?=$select_order_products->rowCount()?> Terjual</b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Menu</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $select_products->rowCount()?> Menu</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox6">
+                    <div class="tran-icon3">
+                        <i class="ri-wallet-2-line"></i>
+                    </div>
+                    <h5><b><?="Rp " . number_format($total_uang)?></b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Pesanan</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $total_pesanan ?> Pesanan</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox1">
+                    <div class="tran-icon1">
+                        <i class="ri-shopping-bag-line"></i>
+                    </div>
+                    <h5><b><?="Rp " . number_format($total1)?></b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Menunggu Pembayaran</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $select_pembayaran1->rowCount()?> Pesanan</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox5">
+                    <div class="tran-icon2">
+                        <i class="ri-customer-service-2-line"></i>
+                    </div>
+                    <h5><b><?="Rp " . number_format($total2)?></b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Menunggu Verifikasi</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $select_pembayaran2->rowCount()?> Pesanan</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox5">
+                    <div class="tran-icon2">
+                        <i class="ri-inbox-unarchive-line"></i>
+                    </div>
+                    <h5><b><?="Rp " . number_format($total3)?></b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Sedang Diperjalanan</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $select_pembayaran3->rowCount()?> Pesanan</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transbox6">
+                    <div class="tran-icon3">
+                        <i class="ri-dropbox-fill"></i>
+                    </div>
+                    <h5><b><?="Rp " . number_format($total4)?></b></h5>
+                    <div class="transbox2">
+                        <div class="transbox3">
+                            <h4>Total Selesai</h4>
+                        </div>
+                        <div class="transbox4">
+                            <h4><?= $select_pembayaran4->rowCount()?> Pesanan</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -137,10 +418,7 @@ if(isset($_SESSION['user_id'])){
 
 
 
-
-
-
-
+        </section>
 
 
 
@@ -149,8 +427,6 @@ if(isset($_SESSION['user_id'])){
             <i class="ri-arrow-up-line"></i>
         </a>
 
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="../js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="../js/header.js"></script>

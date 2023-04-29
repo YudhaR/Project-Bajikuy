@@ -1,19 +1,35 @@
 <?php
 
-include './components/connect.php';
+include '../components/connect.php';
 
 session_start();
 
 if(isset($_SESSION['user_id'])){
    $user_id = $_SESSION['user_id'];
+   $select = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
+   $select->execute([$user_id]);
+   $row = $select->fetch(PDO::FETCH_ASSOC);
+   if($row['role'] != 'admin'){
+        header('location:../index.php');
+   }
+
 }else{
    $user_id = '';
-   header('location:./login.php');
-};
+   header('location:../index.php');
+}
+
+if(isset($_POST['submit'])){
+    $oid = $_POST['oid'];
+    $status = $_POST['status'];
+
+    $update_orders = $conn->prepare("UPDATE `orders` set payment_status = ? WHERE id = ?");
+    $update_orders->execute([$status, $oid]);
+
+    $message[] = 'Status Pesanan Berhasil Dirubah!';
+
+}
 
 ?>
-
-
 
 <!DOCTYPE html>
     <html lang="en">
@@ -22,60 +38,61 @@ if(isset($_SESSION['user_id'])){
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!--=============== FAVICON ===============-->
-        <link rel="shortcut icon" href="./img/icon.png" type="image/x-icon">
+        <link rel="shortcut icon" href="../img/icon.png" type="image/x-icon">
 
         <!--=============== ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
         <!--=============== CSS ===============-->
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
 
         <title>Bajikuy</title>
     </head>
     <body>
+    
 
-        <?php
-            if(isset($message)){
-                foreach($message as $message){
-                    echo '
-                    <div class="message">
-                        <div class="notif grid">
-                            <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
-                            <i class="fa-solid fa-circle-exclamation notif_ic"></i>
-                            <span>'.$message.'</span>
-                        </div>
+    <?php
+        if(isset($message)){
+            foreach($message as $message){
+                echo '
+                <div class="message">
+                    <div class="notif grid">
+                        <i class="fas fa-times notif_ic1" onclick="this.parentElement.remove();"></i>
+                        <i class="fa-solid fa-circle-exclamation notif_ic"></i>
+                        <span>'.$message.'</span>
                     </div>
-                    ';
-                }
+                </div>
+                ';
             }
-        ?>
+        }
+    ?>
 
         <!--==================== HEADER ====================-->
         <header class="header" id="header">
             <nav class="nav container">
-                <a href="./index.php" class="nav__logo">
-                    <img src="./img/bajikuyyy.png" alt="logo">
+                <a href="../admin/index.php" class="nav__logo">
+                    <img src="../img/bajikuyyy.png" alt="logo">
                 </a>
                 <div class="nav__menu" id="nav-menu">
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <a href="./index.php#home" class="nav__link">Beranda</a>
+                            <a href="../admin/index.php" class="nav__link">Beranda</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./index.php#cerita"about class="nav__link">Cerita</a>
+                            <a href="../admin/lokasi.php"about class="nav__link ">Lokasi</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./index.php#lokasi" class="nav__link">Lokasi</a>
+                            <a href="../admin/menu.php" class="nav__link ">Menu</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./index.php#menu" class="nav__link">Menu</a>
+                            <a href="../admin/pesanan.php" class="nav__link active-link">Pesanan</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./pesanan.php" class="nav__link active-link">Pesanan</a>
+                            <a href="../admin/bantuan.php" class="nav__link">Bantuan</a>
                         </li>
                         <li class="nav__item">
-                            <a href="./index.php#bantuan" class="nav__link">Bantuan</a>
+                            <a href="../admin/acc.php" class="nav__link">Akun</a>
                         </li>
                     </ul>
                     <!-- Close button -->
@@ -84,12 +101,6 @@ if(isset($_SESSION['user_id'])){
                     </div>
                 </div>
                 <div class="nav__buttons">
-                    <?php
-                        $hitung_keranjang = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-                        $hitung_keranjang->execute([$user_id]);
-                        $total_keranjang = $hitung_keranjang->rowCount();
-                    ?>
-                    <a href="cart.php" class="barang "><i class="fas fa-shopping-cart "></i><span>(<?= $total_keranjang; ?>)</span></a>
                     <div id="user-btn" class="fas fa-user"></div>
                     <!-- Toggle button -->
                     <div class="nav__toggle" id="nav-toggle">
@@ -97,7 +108,7 @@ if(isset($_SESSION['user_id'])){
                     </div>
                 </div>
 
-            <div class="profile">
+                <div class="profile">
                 <?php
                     $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
                     $select_profile->execute([$user_id]);
@@ -106,18 +117,18 @@ if(isset($_SESSION['user_id'])){
                 ?>
                 <p class="name"><?= $fetch_profile['name']; ?></p>
                 <div class="flex">
-                    <a href="./profile.php" class="btn">Profile</a>
-                    <a href="./components/user_logout.php" onclick="return confirm('Apakah anda yakin keluar?');" class="delete-btn">logout</a>
+                    <a href="../admin/profile.php" class="btn">Profile</a>
+                    <a href="../components/user_logout.php" onclick="return confirm('Apakah anda yakin keluar?');" class="delete-btn">logout</a>
                 </div>
                 <p class="account">
-                    <a href="./login.php">Login</a> or
-                    <a href="./register.php">Register</a>
+                    <a href="../login.php">Login</a> or
+                    <a href="../register.php">Register</a>
                 </p> 
                 <?php
                     }else{
                 ?>
                     <p class="name">Anda Belum Login!</p>
-                    <a href="./login.php" class="btn">login</a>
+                    <a href="../login.php" class="btn">login</a>
                 <?php
                 }
                 ?>
@@ -132,7 +143,7 @@ if(isset($_SESSION['user_id'])){
         <section class="menu section">
             <div class="pesanan_boxs1 container">
                 <div class="pesanan1_box2">
-                    <a href="./pesanan.php">
+                    <a href="../admin/pesanan.php">
                         <i class="ri-arrow-left-line pesanan1-icon"></i>
                     </a>
                     <span>Detail Pesanan</span>
@@ -206,7 +217,7 @@ if(isset($_SESSION['user_id'])){
                 <div class="pesanan1_box3">
                     <div class="pesanan1_box4">
                         <div class="pesanan1_box6">
-                            <img src="./update_img/<?= $fetch_order_products['image']; ?>" alt="Menu Image">
+                            <img src="../update_img/<?= $fetch_order_products['image']; ?>" alt="Menu Image">
                         </div>
                         <div class="pesanan1_box7">
                             <h5><b><?= $fetch_order_products['name']; ?></b></h5>
@@ -266,6 +277,70 @@ if(isset($_SESSION['user_id'])){
                     </div>
                 </div>
 
+                <div class="transbox10">
+                    <?php
+                    if($fetch_orders['method'] != '1'){
+                    ?>
+                        <h6>Konfirmasi Pembayaran</h6>
+                        <?php
+                        if($fetch_orders['image'] != ''){
+                        ?>
+                        <div class="transbox11 container">
+                            <img src="../payment_img/<?= $fetch_orders['image']; ?>" alt="">
+                        </div>
+                        <form action="" method="post" enctype="multipart/form-data" class="transbox12">
+                            <h4 class="cart-text1"> Ubah Status Pesanan </h4>
+                            <select name="status" class="cart-payment" value="<?= $fetch_orders['payment_status']; ?>"required>
+                                <option value="Menunggu Pembayaran">Menunggu Pembayaran</option>
+                                <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
+                                <option value="Sedang Diperjalanan">Sedang Diperjalanan</option>
+                                <option value="Selesai">Selesai</option>
+                            </select>
+                            <input type="hidden" name="oid" value="<?= $fetch_orders['id']; ?>">
+                            <input type="submit" value="Update" class="btn" id="lokabtn" name="submit">
+                        </form>
+                        <?php
+                        }else{
+                        ?>
+                        <div class="cart-empty">
+                            <i class="ri-creative-commons-nc-line"></i>
+                            <h4 class="h4-text1"> <b> Belum ada bukti pembayaran </b></h4>
+                            <h5 class="h5-text1"> Pelanggang Belum Mengirimkan Bukti Transaksi Pembayaran Senilai  <b><?= "Rp " . number_format($fetch_orders['total_price']) ?></b> </h5>
+                        </div>
+                        <form action="" method="post" enctype="multipart/form-data" class="transbox12">
+                            <h4 class="cart-text1"> Ubah Status Pesanan </h4>
+                            <select name="status" class="cart-payment" required disabled>
+                                <option value="" disabled selected><?= $fetch_orders['payment_status']; ?></option>
+                                <option value="Menunggu Pembayaran">Menunggu Pembayaran</option>
+                                <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
+                                <option value="Sedang Diperjalanan">Sedang Diperjalanan</option>
+                                <option value="Selesai">Selesai</option>
+                            </select>
+                            <input type="hidden" name="oid" value="<?= $fetch_orders['id']; ?>">
+                            <input type="submit" value="Update" class="btn" id="lokbtn" name="submit">
+                        </form>
+                    <?php
+                        }
+                    }else{
+                    ?>
+                        <form action="" method="post" enctype="multipart/form-data" class="transbox12">
+                            <h4 class="cart-text1"> Ubah Status Pesanan </h4>
+                            <select name="status" class="cart-payment" required>
+                                <option value="" disabled selected><?= $fetch_orders['payment_status']; ?></option>
+                                <option value="Menunggu Pembayaran">Menunggu Pembayaran</option>
+                                <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
+                                <option value="Sedang Diperjalanan">Sedang Diperjalanan</option>
+                                <option value="Selesai">Selesai</option>
+                            </select>
+                            <input type="hidden" name="oid" value="<?= $fetch_orders['id']; ?>">
+                            <input type="submit" value="Update" class="btn" id="lokabtn" name="submit">
+                        </form>
+                    <?php    
+                    }
+                    ?>
+                    
+                </div>
+
 
 
 
@@ -295,7 +370,8 @@ if(isset($_SESSION['user_id'])){
 
 
 
-        <?php include './components/user_footer.php'; ?>
+
+
 
         <!--========== SCROLL UP ==========-->
         <a href="#" class="scrollup" id="scroll-up">
@@ -303,5 +379,4 @@ if(isset($_SESSION['user_id'])){
         </a>
 
         <!--=============== Header JS ===============-->
-        <script src="./js/header.js"></script>
-    </body>
+        <script src="../js/header.js"></script>

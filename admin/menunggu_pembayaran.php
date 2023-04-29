@@ -18,7 +18,6 @@ if(isset($_SESSION['user_id'])){
    header('location:../index.php');
 }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -73,13 +72,13 @@ if(isset($_SESSION['user_id'])){
                             <a href="../admin/lokasi.php"about class="nav__link ">Lokasi</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/menu.php" class="nav__link active-link">Menu</a>
+                            <a href="../admin/menu.php" class="nav__link ">Menu</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/pesanan.php" class="nav__link">Pesanan</a>
+                            <a href="../admin/pesanan.php" class="nav__link active-link">Pesanan</a>
                         </li>
                         <li class="nav__item">
-                            <a href="../admin/bantuan.php" class="nav__link ">Bantuan</a>
+                            <a href="../admin/bantuan.php" class="nav__link">Bantuan</a>
                         </li>
                         <li class="nav__item">
                             <a href="../admin/acc.php" class="nav__link">Akun</a>
@@ -130,94 +129,100 @@ if(isset($_SESSION['user_id'])){
             
         </header>
 
-        <section class="pbox container grid">
-            <div class="profile_container">
-                <div class="profile-box">
-                    <a href="../admin/menu.php"><i class="ri-arrow-left-line icon_panah"></i></a>
-                    <span class="section_title profile_title1">Riwayat Menu</span> 
+
+        <section class="transaksi section">
+            <div class="pesanan_boxs container transbox7">
+                <div class="pesanan4_box1">
+                    <a href="../admin/pesanan.php">
+                        <i class="ri-arrow-left-line pesanan2-icon"></i>
+                    </a>
+                    <span>Menunggu Pembayaran</span>
                 </div>
 
-                <div class="profile-box">
-                    <h3 class="profile_title3">Riwayat Penambahan Menu Warung Atau Outlet Yang Telah Diinput Oleh Admin!</h3> 
-                </div>
 
-
-                <div class="records table-responsive">
-                    <div>
-                        <table width="100%">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>USERNAME</th>
-                                    <th>JUDUL</th>
-                                    <th>STATUS</th>
-                                    <th>WAKTU</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                                $select_update = $conn->prepare("SELECT * FROM `tabel_products` ORDER BY `id` DESC");
-                                $select_update->execute();
-                                if(($select_update->rowCount() > 0)){
-                                    while($fetch_update = $select_update->fetch(PDO::FETCH_ASSOC)){
-                            ?>
-                                <tr>
-                                    <td><?= $fetch_update['user_id']; ?></td>
-                                    <td>
-                                        <div class="client">
-                                            <div class="client-info">
-                                                <h4><?= $fetch_update['name']; ?></h4>
-                                                <small><?= $fetch_update['email']; ?></small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <?= $fetch_update['judul']; ?>
-                                    </td>
-                                <?php
-                                    if($fetch_update['status'] == "Menambahkan"){
-                                ?>
-                                    <td class="tambah">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }else if($fetch_update['status'] == "Mengedit"){
-                                ?>
-                                    <td class="edit">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }else if($fetch_update['status'] == "Menghapus"){
-                                ?>
-                                    <td class="hapus">
-                                        <?= $fetch_update['status']; ?>
-                                    </td>
-                                <?php
-                                    }
-                                ?>
-                                    <td>
-                                        <?= $fetch_update['waktu']; ?>
-                                    </td>
-                                </tr>
-                            <?php
-                                    }
-                                }
-                            ?>
-                        </table>
+                <?php
+                $pstatus1 = "Menunggu Pembayaran";
+                $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE payment_status = ? ORDER BY `id` ASC");
+                $select_orders->execute([$pstatus1]);
+                    if($select_orders->rowCount() > 0){
+                        while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+                ?>
+                <div class="pesanan_box2">
+                    <i class="ri-shopping-bag-2-line pesanan-icon1"></i>
+                    <span class="pesanan-text">Belanja</span>
+                    <span class="pesanan-text3"><?= $fetch_orders['placed_on']; ?></span>
+                    <?php
+                    if($fetch_orders['payment_status']  == "Menunggu Pembayaran"){
+                    ?>
+                    <span class="hapus1"><?= $fetch_orders['payment_status']; ?></span>
+                    <?php
+                    }else if($fetch_orders['payment_status']  == "Menunggu Verifikasi"){
+                    ?>
+                    <span class="edit1"><?= $fetch_orders['payment_status']; ?></span>
+                    <?php
+                    }else if($fetch_orders['payment_status']  == "Sedang Diperjalanan"){
+                    ?>
+                    <span class="edit1"><?= $fetch_orders['payment_status']; ?></span>
+                    <?php
+                    }else if($fetch_orders['payment_status']  == "Selesai"){
+                    ?>
+                    <span class="tambah1"><?= $fetch_orders['payment_status']; ?></span>
+                    <?php
+                    }
+                    $oid = $fetch_orders['id'];
+                    $select_order_products1 = $conn->prepare("SELECT * FROM `order_products` WHERE oid = ?");
+                    $select_order_products1->execute([$oid]);
+                    $select_order_products = $conn->prepare("SELECT * FROM `order_products` WHERE oid = ? LIMIT 1");
+                    $select_order_products->execute([$oid]);
+                        if($select_order_products->rowCount() > 0){
+                            while($fetch_order_products = $select_order_products->fetch(PDO::FETCH_ASSOC)){
+                    ?>
+                    <div class="pesanan_box3">
+                        <div class="pesanan_box4">
+                            <div class="pesanan_box6">
+                                <img src="../update_img/<?= $fetch_order_products['image']; ?>" alt="Menu Image">
+                            </div>
+                            <div class="pesanan_box7">
+                                <h5><b><?= $fetch_order_products['name']; ?></b></h5>
+                                <span><?= $fetch_order_products['quantity']; ?> Barang x </span>
+                                <span><?= "Rp " . number_format($fetch_order_products['price']) ?></span>
+                                <h4>+<?= $select_order_products1->rowCount() - 1 ?> Produk Lainnya</h4>
+                            </div>
+                        </div>
+                        <div class="pesanan_box5">
+                            <h4 class="pesanan_box5-text">Total Belanja</h4>
+                            <h4 class="pesanan_box5-text1"><?= "Rp " . number_format($fetch_orders['total_price']) ?></h4>
+                            <a href="../admin/pesanan1.php?pesanan1=<?= $fetch_orders['id']; ?>" class="pesanan1-link">Lihat Detail Pesanan</a>
+                        </div>
                     </div>
+                    <?php
+                            }
+                        }
+                    ?>
                 </div>
+
+                <?php
+                        }
+                    }else{
+                ?>
+                    <div class="cart-empty">
+                        <i class="ri-emotion-sad-line"></i>
+                        <h4 class="h4-text1"> <b> Belum ada transasksi </b></h4>
+                        <h5 class="h5-text1"> Yuk, Tambahkan Menu Warungmu Untuk Memudahkan Pelanggan Untuk Mencoba Produkmu! </h5>
+                        <a href="../admin/menu.php" class="btn cart-btn1">Tambahkan Menu</a>
+                    </div>
+                <?php
+                    }
+                ?>
             </div>
 
+
+
+
+
+
+
         </section>
-
-
- 
-
-
-
-
-
-
 
 
 

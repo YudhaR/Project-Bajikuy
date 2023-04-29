@@ -66,7 +66,7 @@ if(isset($_GET['delete'])){
 
         <!--=============== ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="../css/style.css">
@@ -153,7 +153,7 @@ if(isset($_GET['delete'])){
                 <div class="bloks1 container">
 
                     <?php
-                        $select_lokasi = $conn->prepare("SELECT * FROM `lokasi` WHERE user_id = \"$user_id\"");
+                        $select_lokasi = $conn->prepare("SELECT * FROM `lokasi` WHERE user_id = \"$user_id\" ORDER BY `id` DESC");
                         $select_lokasi->execute();
                         if($select_lokasi->rowCount() > 1){
                     ?>
@@ -167,7 +167,7 @@ if(isset($_GET['delete'])){
                                 <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
                                 <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
                                 <div class="tombol container" >
-                                    <a href="../seller/add_lokasi.php" id="lokbtn" class="button"> Tambahkan </a>
+                                    <a href="../seller/add_lokasi.php" id="lokbtn" class="btn"> Tambahkan </a>
                                 </div>
                             </div>
                         </div>
@@ -187,8 +187,8 @@ if(isset($_GET['delete'])){
                                 <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
                                 <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
                                 <div class="tombol-container">
-                                    <a href="../seller/update_lokasi.php?update=<?= $fetch_lokasi['id']; ?>" class="button" id="lokabtn">update</a>
-                                    <a href="../seller/index.php?delete=<?= $fetch_lokasi['id']; ?>" class="button" id="lokabtn" onclick="return confirm('delete this product?');">delete</a>
+                                    <a href="../seller/update_lokasi.php?update=<?= $fetch_lokasi['id']; ?>" class="btn" id="lokabtn">update</a>
+                                    <a href="../seller/index.php?delete=<?= $fetch_lokasi['id']; ?>" class="delete-btn" id="lokabtn" onclick="return confirm('Hapus Lokasi Ini?');">delete</a>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +206,7 @@ if(isset($_GET['delete'])){
                                 <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
                                 <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
                                 <div class="tombol container" >
-                                    <a href="../seller/add_lokasi.php" class="button" id="lokabtn"> Tambahkan </a>
+                                    <a href="../seller/add_lokasi.php" class="btn" id="lokabtn"> Tambahkan </a>
                                 </div>
                             </div>
                         </div>
@@ -226,8 +226,8 @@ if(isset($_GET['delete'])){
                                 <h4 class="lokasic"> <i class="fas fa-calendar"></i> <?= $fetch_lokasi['waktu']; ?> </h4>
                                 <h4 class="lokasic1"> <i class="fas fa-user"></i> <?= $fetch_name['role']; ?> </h4>
                                 <div class="tombol-container">
-                                    <a href="../seller/update_lokasi.php?update=<?= $fetch_lokasi['id']; ?>" class="button" id="lokabtn">update</a>
-                                    <a href="../seller/index.php?delete=<?= $fetch_lokasi['id']; ?>" class="button" id="lokabtn" onclick="return confirm('delete this product?');">delete</a>
+                                    <a href="../seller/update_lokasi.php?update=<?= $fetch_lokasi['id']; ?>" class="btn" id="lokabtn">update</a>
+                                    <a href="../seller/index.php?delete=<?= $fetch_lokasi['id']; ?>" class="delete-btn" id="lokabtn" onclick="return confirm('Hapus Lokasi Ini?');">delete</a>
                                 </div>
                             </div>
                         </div>
@@ -258,7 +258,7 @@ if(isset($_GET['delete'])){
                                 <h4 class="lokasic"> <i class="fas fa-calendar"></i> - </h4>
                                 <h4 class="lokasic1"> <i class="fas fa-user"></i> - </h4>
                                 <div class="tombol container" >
-                                    <a href="../seller/add_lokasi.php" class="button" id="lokabtn"> Tambahkan </a>
+                                    <a href="../seller/add_lokasi.php" class="btn" id="lokabtn"> Tambahkan </a>
                                 </div>
                             </div>
                         </div>
@@ -298,9 +298,6 @@ if(isset($_GET['delete'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="../js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="../js/header.js"></script>

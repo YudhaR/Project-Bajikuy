@@ -55,7 +55,7 @@ if(isset($_POST['submit'])){
 
         <!--=============== ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="./css/style.css">
@@ -175,22 +175,22 @@ if(isset($_POST['submit'])){
                     <form action="" method="post">
                         <div class="passeb">
                             <div class="pass_content">
-                                <input type="password" required placeholder=" " class="pass_input" name="old_pass">
+                                <input type="password" required placeholder=" " class="pass_input" name="old_pass" minlength="8" maxlength="50">
                                 <label for="" class="pass_label">Masukkan Kata Sandi Lama</label>  
                             </div>
 
                             <div class="pass_content">
-                                <input type="password" required placeholder=" " class="pass_input" name="new_pass">
+                                <input type="password" required placeholder=" " class="pass_input" name="new_pass" minlength="8" maxlength="50">
                                 <label for="" class="pass_label">Masukkan Kata Sandi Baru</label>  
                             </div>
 
                             <div class="pass_content">
-                                <input type="password" required placeholder=" " class="pass_input" name="confirm_pass">
+                                <input type="password" required placeholder=" " class="pass_input" name="confirm_pass" minlength="8" maxlength="50">
                                 <label for="" class="pass_label">Masukkan Ulang Kata Sandi Baru</label>  
                             </div>
                         </div>
                         <div class="btn_pass">
-                            <input type="submit" value="Simpan" class="button pass_button" id="nbutton" name="submit">
+                            <input type="submit" value="Simpan" class="btn pass_button" id="lokabtn" name="submit">
                         </div>
                     </form>
                 </div>
@@ -215,9 +215,6 @@ if(isset($_POST['submit'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="./js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="./js/header.js"></script>

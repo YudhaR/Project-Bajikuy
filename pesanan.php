@@ -143,7 +143,7 @@ if(isset($_SESSION['user_id'])){
                 </a>
                 
                 <?php
-                $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ?");
+                $select_orders = $conn->prepare("SELECT * FROM `orders` WHERE user_id = ? ORDER BY `id` DESC");
                 $select_orders->execute([$user_id]);
                     if($select_orders->rowCount() > 0){
                         while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
@@ -204,6 +204,15 @@ if(isset($_SESSION['user_id'])){
 
                 <?php
                         }
+                    }else{
+                ?>
+                    <div class="cart-empty">
+                        <i class="ri-emotion-sad-line"></i>
+                        <h4 class="h4-text1"> <b> Belum ada transasksi </b></h4>
+                        <h5 class="h5-text1"> Yuk, isi dengan Minuman dan Makanan Favoritmu! </h5>
+                        <a href="./index.php#menu" class="btn cart-btn1">Mulai Belanja</a>
+                    </div>
+                <?php
                     }
                 ?>
             </div>
@@ -235,9 +244,6 @@ if(isset($_SESSION['user_id'])){
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line"></i>
         </a>
-
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="./js/scrollreveal.min.js"></script>
 
         <!--=============== Header JS ===============-->
         <script src="./js/header.js"></script>
